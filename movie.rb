@@ -12,14 +12,18 @@ class Movie
 		@raiting = movie[:raiting]
 		@producer = movie[:producer]
 		@actors = movie[:actors]
-		if movie[:date].length > 6
-			@month = Date._strptime(movie[:date], '%Y-%m')[:mon]
-		end
+		@month = movie[:date]
+	end
 
+	def first
+		@mov_arr[0]
+	end
+
+	def actors
+		@mov_arr.map{|mov| mov.actors}
 	end
 
 	attr_reader :link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors, :month
-	attr_writer :link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors
 	def to_s
 		"Movie: #{@tittle}, #{@genre}, #{@country}, #{@date}, #{@time}"
 	end
