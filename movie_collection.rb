@@ -18,7 +18,7 @@ class MovieCollection
     
     def filter (arg)
     	#arg.each_key{|key| key}
-    	@mov_arr.select{|mov| (mov.send arg).include?('Western')}
+    	@mov_arr.select{|mov| arg.each_key{|key| puts mov.send key}}
     end
 
 
