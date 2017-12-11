@@ -7,12 +7,14 @@ class Movie
 		@year = movie[:year]
 		@country = movie[:country]
 		@date = movie[:date]
-		@genre = movie[:genre]
-		@time = movie[:time]
+		@genre = movie[:genre].split(',')
+		@time = movie[:time].to_i
 		@raiting = movie[:raiting]
 		@producer = movie[:producer]
-		@actors = movie[:actors]
-		@month = movie[:date]
+		@actors = movie[:actors].split(',')
+		if movie[:date].length > 6
+			@month = Date._strptime(movie[:date], '%Y-%m')[:mon]
+		end
 	end
 
 	def first
@@ -21,6 +23,10 @@ class Movie
 
 	def actors
 		@mov_arr.map{|mov| mov.actors}
+	end
+
+	def has_genre?(arg)
+		@mov_arr.map{|mov| mov.genre.include?(arg)}
 	end
 
 	attr_reader :link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors, :month
