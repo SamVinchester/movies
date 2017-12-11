@@ -1,6 +1,6 @@
 require 'csv'
 require 'date'
-class Movie 
+class Movie
 	def initialize(movie)
 		@link = movie[:link]
 		@tittle = movie[:tittle]
@@ -15,19 +15,14 @@ class Movie
 		if movie[:date].length > 6
 			@month = Date._strptime(movie[:date], '%Y-%m')[:mon]
 		end
+		#@movies = movie
 	end
 
-	def first
-		@mov_arr[0]
-	end
 
-	def actors
-		@mov_arr.map{|mov| mov.actors}
-	end
 
 	def has_genre?(arg)
-		@mov_arr.map{|mov| mov.genre.include?(arg)}
-	end
+        @genre.include?(arg)
+    end
 
 	attr_reader :link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors, :month
 	def to_s

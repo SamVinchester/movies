@@ -8,7 +8,7 @@ mov_arr = MovieCollection.new(ARGV[0] || "movies.txt")
 #puts " "
 #puts mov_arr.sort_by(:time)
 #puts " "
-#puts mov_arr.filter(genre: "Western", year: '1966')
+puts mov_arr.filter(genre: "Western")
 #puts " "
 #puts mov_arr.stats(:producer)
 #puts " "
@@ -22,6 +22,6 @@ mov_arr = MovieCollection.new(ARGV[0] || "movies.txt")
 #puts " "
 #puts mov_arr.stats(:genre)
 #puts " "
-puts mov_arr.all.first.actors
+#puts mov_arr.all.first.actors
 #puts " "
-puts mov_arr.all.first.has_genre?('Comedy')
+#puts mov_arr.all.first.has_genre?('Comedy')
