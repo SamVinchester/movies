@@ -17,17 +17,8 @@ class MovieCollection
 	end
     
     def filter (arg)
-    	#arg.each_key{|key| key}
-    	@mov_arr.select{|mov| arg.each_key{|key| puts mov.send key}}
+        @mov_arr.select{|mov| (mov.send arg.keys[0]).include?(arg.values[0]) && (mov.send arg.keys[1]).include?(arg.values[1])}
     end
-
-
-	#def filter (arg)
-	#	@mov_arr.select{|film| if arg.has_key?(:genre)
-	#		film.genre.include?(arg[:genre])
-	#	else film.country.include?(arg[:country])
-	#	end}
-	#end
 
 	def stats (arg)
         if arg == :month
