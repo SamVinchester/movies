@@ -1,4 +1,1 @@
-def test_method (arg)
-	arg.each_key{|key| puts key}
-end
-test_method(foo: 'bar', foo2: 'bar2')
+p (2001..2003) === 2001
