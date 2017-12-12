@@ -18,12 +18,12 @@ class Movie
     end
 
     def has_genre?(arg)
-        @genre.include?(arg)
-    end
-
-    def method_missing(methId)
-        arg = methId.id2name
-        has_genre?(arg)	
+        genres = ["Crime", "Drama", "Action", "Biography", "History", "Western", "Adventure", "Fantasy", "Romance", "Mystery", "Sci-Fi", "Thriller", "Family", "Comedy", "War", "Animation", "Horror", "Music", "Film-Noir", "Musical", "Sport"]
+    	if genres.include?(arg)
+    	    @genre.include?(arg)
+    	else
+            raise ArgumentError, "Genre is not found"
+        end
     end
 
     attr_reader :link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors, :month
