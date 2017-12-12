@@ -15,11 +15,12 @@ class Movie
         if movie[:date].length > 6
             @month = Date._strptime(movie[:date], '%Y-%m')[:mon]
         end
+        @genres = []
+        p @genres.push(@genre).to_s.include?("Western")
     end
 
     def has_genre?(arg)
-        genres = ["Crime", "Drama", "Action", "Biography", "History", "Western", "Adventure", "Fantasy", "Romance", "Mystery", "Sci-Fi", "Thriller", "Family", "Comedy", "War", "Animation", "Horror", "Music", "Film-Noir", "Musical", "Sport"]
-    	if genres.include?(arg)
+    	if @genres.to_s.include?(arg)
     	    @genre.include?(arg)
     	else
             raise ArgumentError, "Genre is not found"
