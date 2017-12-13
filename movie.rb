@@ -7,7 +7,7 @@ class Movie
         @year = movie[:year].to_i
         @country = movie[:country]
         @date = movie[:date]
-        @genre = movie[:genre]
+        @genre = movie[:genre].split(',')
         @time = movie[:time].to_i
         @raiting = movie[:raiting]
         @producer = movie[:producer]
@@ -21,10 +21,9 @@ class Movie
     def has_genre?(arg)
 
     	if @collection.genres.include?(arg)
-    	    @genre.include?(arg)
-    	else
-            raise ArgumentError, "Genre is not found"
+            raise "Genre is found!"
         end
+        raise ArgumentError, "Genre is not found"
     end
 
     attr_reader :link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors, :month

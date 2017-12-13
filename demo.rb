@@ -25,8 +25,10 @@ mov_arr = MovieCollection.new(ARGV[0] || "movies.txt")
 #puts mov_arr.all.first.actors
 #puts " "
 begin
-    puts mov_arr.all.first.has_genre?('Crime')
+    puts mov_arr.all.first.has_genre?('Sport')
+rescue RuntimeError
+    puts mov_arr.all.first.genre.include?('Sport')
 rescue ArgumentError
-    puts "Указан не существующий жанр"	
+    puts "Указан не существующий жанр"
 end
 #puts mov_arr.genres
