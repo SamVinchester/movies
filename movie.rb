@@ -16,11 +16,11 @@ class Movie
             @month = Date._strptime(movie[:date], '%Y-%m')[:mon]
         end
         @collection = collection
-        p @collection.genres
     end
 
     def has_genre?(arg)
-    	if @genres.to_s.include?(arg)
+
+    	if @collection.genres.include?(arg)
     	    @genre.include?(arg)
     	else
             raise ArgumentError, "Genre is not found"
