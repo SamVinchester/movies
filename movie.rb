@@ -1,7 +1,7 @@
 require 'csv'
 require 'date'
 class Movie
-    def initialize(movie)
+    def initialize(movie, collection)
         @link = movie[:link]
         @tittle = movie[:tittle]
         @year = movie[:year].to_i
@@ -15,8 +15,8 @@ class Movie
         if movie[:date].length > 6
             @month = Date._strptime(movie[:date], '%Y-%m')[:mon]
         end
-        @genres = []
-        p @genres.push(@genre).to_s.include?("Western")
+        @collection = collection
+        p @collection.genres
     end
 
     def has_genre?(arg)

@@ -1,7 +1,7 @@
 class MovieCollection
   def initialize(arg)
       @mov_arr = CSV.read(arg, col_sep: "|")
-        .map { |line| Movie.new(KEYS.zip(line).to_h)}
+        .map { |line| Movie.new(KEYS.zip(line).to_h, self)}
   end
 
   def all
@@ -15,9 +15,14 @@ class MovieCollection
   def filter (arg)
       @mov_arr.select{|mov| arg.all?{|key, value| value === mov.send(key)}}
   end
+
   def stats (arg)
       @mov_arr.map{|mov| (mov.send(arg))}
         .compact.flatten.each_with_object(Hash.new{ 0 }){ |i, result| result[i] += 1}
+  end
+
+  def genres
+      @mov_arr.map{|mov| mov.genre.split(',')}.flatten.uniq
   end
 
   def to_s
