@@ -20,10 +20,10 @@ class Movie
 
     def has_genre?(arg)
 
-    	if @collection.genres.include?(arg)
-            raise "Genre is found!"
+    	unless @collection.genres.include?(arg)
+    		raise ArgumentError, "Genre is not found"
         end
-        raise ArgumentError, "Genre is not found"
+        @genre.include?(arg)
     end
 
     attr_reader :link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors, :month
