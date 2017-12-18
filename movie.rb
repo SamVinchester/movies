@@ -1,5 +1,7 @@
 require 'csv'
 require 'date'
+require 'time'
+
 class Movie
     def initialize(movie, collection)
         @link = movie[:link]
