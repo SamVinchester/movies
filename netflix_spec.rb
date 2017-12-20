@@ -1,10 +1,12 @@
-require "./netflix.rb"
-require "./movie_collection.rb"
+require "./demo.rb"
 require "./movie.rb"
+require "./movie_collection.rb"
+require "./netflix.rb"
 require 'rspec'
 
 describe Netflix do
   it '.show' do
-    expect(netflix.show("Akira")).to eq 'Now showing: '
+    netflix = Netflix.new
+    netflix.show.should include("Now showing: ")
   end
 end
