@@ -1,4 +1,5 @@
 class MovieCollection
+  KEYS = [:link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors]
   def initialize(arg)
       @mov_arr = CSV.read(arg, col_sep: "|")
         .map { |line| Movie.new(KEYS.zip(line).to_h, self)}
