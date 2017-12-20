@@ -18,6 +18,15 @@ class Movie
             @month = Date._strptime(movie[:date], '%Y-%m')[:mon]
         end
         @collection = collection
+        if (1900..1945) === movie[:year].to_i
+            @period = "ancient"
+        elsif (1945..1968) === movie[:year].to_i
+            @period = "classic"
+        elsif (1968..2000) === movie[:year].to_i
+            @period = "modern"
+        elsif (2000..2017) === movie[:year].to_i
+            @period = "new"
+        end
     end
 
     def has_genre?(arg)
@@ -28,7 +37,7 @@ class Movie
         @genre.include?(arg)
     end
 
-    attr_reader :link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors, :month
+    attr_reader :link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors, :month, :period
     def to_s
         "Movie: #{@tittle}, #{@genre}, #{@country}, #{@date}, #{@time}"
     end
