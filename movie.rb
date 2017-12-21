@@ -9,7 +9,7 @@ class Movie
         @year = movie[:year].to_i
         @country = movie[:country]
         @date = movie[:date]
-        @genre = movie[:genre].split(',')
+        @genre = movie[:genre]#.split(',')
         @time = movie[:time].to_i
         @raiting = movie[:raiting]
         @producer = movie[:producer]

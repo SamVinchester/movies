@@ -7,5 +7,7 @@ load "theatre.rb"
 netflix = Netflix.new(ARGV[0] || "movies.txt")
 theatre = Theatre.new(ARGV[0] || "movies.txt")
 
-puts netflix.show("The Shawshank Redemption")
-puts theatre.show("Pulp Fiction")
+#puts netflix.show("Prisoners")
+#puts theatre.show("Casablanca")
+
+puts netflix.show(genre: "Western", period: "modern")
