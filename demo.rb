@@ -10,4 +10,4 @@ theatre = Theatre.new(ARGV[0] || "movies.txt")
 #puts netflix.show("Prisoners")
 #puts theatre.show("Casablanca")
 
-puts netflix.show(genre: "Western", period: "modern")
+puts netflix.show(genre: "Comedy", period: "modern")

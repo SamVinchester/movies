@@ -26,7 +26,7 @@ describe Netflix do
 
   it '.show filter' do
     netflix = Netflix.new("movies.txt")
-    expect(netflix.show(genre: 'Western', period: 'new')).to eq(["Now showing: Django Unchained - novelty, premiere 5 years ago!" + " " + Time.now.strftime("%T") + " - " + (Time.now + (165 * 60)).strftime("%T")])
+    expect(netflix.show(genre: 'Western', period: 'new')).to eq("Now showing: Django Unchained - novelty, premiere 5 years ago!" + " " + Time.now.strftime("%T") + " - " + (Time.now + (165 * 60)).strftime("%T"))
   end 
 
 end

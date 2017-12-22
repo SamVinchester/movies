@@ -28,7 +28,7 @@ class Netflix < MovieCollection
                   "Now showing: " + film.tittle + " - modern movie, actors " + (film.actors).join(", ") + " " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
               elsif film.period == "new"
                   "Now showing: " + film.tittle + " - novelty, premiere " + (2017 - film.year).to_s + " years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
-              end  }	
+              end  }.shuffle.first
       end
   end
 
