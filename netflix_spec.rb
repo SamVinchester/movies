@@ -1,7 +1,6 @@
 require "./movie.rb"
 require "./movie_collection.rb"
 require "./netflix.rb"
-require 'rspec'
 
 describe Netflix do
   describe '#show' do
@@ -9,12 +8,37 @@ describe Netflix do
     let(:netflix) { Netflix.new("movies.txt") }
 
     context 'when showing ancient film' do
-      #let(:period) { "ancient" }
       it { is_expected.to eq "Now showing: Casablanca - old film(1942 year)" + ' ' + Time.now.strftime("%T") + " - " + (Time.now + (102 * 60)).strftime("%T")}
     end
-
-
   end
+
+  describe '#show' do
+    subject { netflix.show("Diabolique") }
+    let(:netflix) { Netflix.new("movies.txt") }
+
+    context 'when showing classic film' do
+      it { is_expected.to eq "Now showing: " + "Diabolique - classic film, producer Henri-Georges Clouzot (The Wages of Fear)" + " " + Time.now.strftime("%T") + " - " + (Time.now + (116 * 60)).strftime("%T")}
+    end
+  end
+
+  describe '#show' do
+    subject { netflix.show("Jurassic Park") }
+    let(:netflix) { Netflix.new("movies.txt") }
+
+    context 'when showing modern film' do
+      it { is_expected.to eq "Now showing: " + "Jurassic Park - modern movie, actors Sam Neill, Laura Dern, Jeff Goldblum" + " " + Time.now.strftime("%T") + " - " + (Time.now + (127 * 60)).strftime("%T")}
+    end
+  end
+
+  describe '#show' do
+    subject { netflix.show("Prisoners") }
+    let(:netflix) { Netflix.new("movies.txt") }
+
+    context 'when showing new film' do
+      it { is_expected.to eq "Now showing: " + "Prisoners - novelty, premiere 4 years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (153 * 60)).strftime("%T")}
+    end
+  end  
+
 end
 
 #describe Netflix do
