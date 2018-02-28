@@ -5,26 +5,51 @@ require "./netflix.rb"
 describe Netflix do
   let(:netflix) { Netflix.new("movies.txt") }
   describe '#show' do
-    subject { netflix.show("Casablanca") }
     context 'when showing ancient film' do
+      subject { netflix.show("Casablanca") }
       it { is_expected.to eq "Now showing: Casablanca - old film(1942 year)" + ' ' + Time.now.strftime("%T") + " - " + (Time.now + (102 * 60)).strftime("%T")}
     end
 
-    subject { netflix.show("Diabolique") }
     context 'when showing classic film' do
+      subject { netflix.show("Diabolique") }
       it { is_expected.to eq "Now showing: " + "Diabolique - classic film, producer Henri-Georges Clouzot (The Wages of Fear)" + " " + Time.now.strftime("%T") + " - " + (Time.now + (116 * 60)).strftime("%T")}
     end
 
-    subject { netflix.show("Jurassic Park") }
     context 'when showing modern film' do
+      subject { netflix.show("Jurassic Park") }
       it { is_expected.to eq "Now showing: " + "Jurassic Park - modern movie, actors Sam Neill, Laura Dern, Jeff Goldblum" + " " + Time.now.strftime("%T") + " - " + (Time.now + (127 * 60)).strftime("%T")}
     end
 
-    subject { netflix.show("Prisoners") }
     context 'when showing new film' do
+      subject { netflix.show("Prisoners") }
       it { is_expected.to eq "Now showing: " + "Prisoners - novelty, premiere 4 years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (153 * 60)).strftime("%T")}
     end
-  end  
+
+    context 'when showing some film' do
+      subject { netflix.show(genre: "Western", period: "new") }
+      it { is_expected.to change{@netflix.balance}.by(-5) }
+    end
+
+    context 'when using filters' do
+      subject { netflix.show(genre: "Western", period: "new") }
+      let(:balance) {100}
+      it { is_expected.to eq "Now showing: Django Unchained - novelty, premiere 5 years ago!" + " " + Time.now.strftime("%T") + " - " + (Time.now + (165 * 60)).strftime("%T")}
+    end
+  end
+
+  describe '#pay' do
+    context 'when pay' do
+      subject { netflix.pay(25) }
+      it {is_expected.to eq netflix.balance}
+    end
+  end
+
+  describe '#how_much?' do
+    context 'when useing how_much' do
+      subject { netflix.how_much?("The Terminator")}
+      it { is_expected.to eq "cost of the film is 3$"}
+    end
+  end
 end
 
 #describe Netflix do
