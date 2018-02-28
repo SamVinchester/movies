@@ -5,6 +5,7 @@ require "./netflix.rb"
 describe Netflix do
   let(:netflix) { Netflix.new("movies.txt") }
   describe '#show' do
+    before { netflix.pay(100) }
     context 'when showing ancient film' do
       subject { netflix.show("Casablanca") }
       it { is_expected.to eq "Now showing: Casablanca - old film(1942 year)" + ' ' + Time.now.strftime("%T") + " - " + (Time.now + (102 * 60)).strftime("%T")}
@@ -27,12 +28,11 @@ describe Netflix do
 
     context 'when showing some film' do
       subject { netflix.show(genre: "Western", period: "new") }
-      it { is_expected.to change{@netflix.balance}.by(-5) }
+      it { expect { subject }.to change{netflix.balance}.by(-5) }
     end
 
     context 'when using filters' do
       subject { netflix.show(genre: "Western", period: "new") }
-      let(:balance) {100}
       it { is_expected.to eq "Now showing: Django Unchained - novelty, premiere 5 years ago!" + " " + Time.now.strftime("%T") + " - " + (Time.now + (165 * 60)).strftime("%T")}
     end
   end
