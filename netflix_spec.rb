@@ -32,9 +32,18 @@ describe Netflix do
     end
 
     context 'when using filters' do
-      subject { netflix.show(genre: "Western", period: "new") }
-      it { is_expected.to eq "Now showing: Django Unchained - novelty, premiere 5 years ago!" + " " + Time.now.strftime("%T") + " - " + (Time.now + (165 * 60)).strftime("%T")}
+      it 'calls filters' do
+        expect(netflix).to receive(:filter).with(genre: "Western", period: "new").and_call_original
+        netflix.show(genre: "Western", period: "new")
+      end
     end
+
+    #context 'when using filters' do
+    #  it { expect(netflix).to receive(:filter).with(tittle: "Django Unchained", year: 2012).and_call_original
+    #  subject { netflix.show(genre: "Western", period: "new") }
+    #  expect { subject }.to eq "Now showing: Django Unchained - novelty, premiere 5 years ago!" + " " + Time.now.strftime("%T") + " - " + (Time.now + (165 * 60)).strftime("%T") }
+    #end
+    
   end
 
   describe '#pay' do
