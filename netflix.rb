@@ -59,19 +59,31 @@ class Netflix < MovieCollection
           	  raise ArgumentError, "not enough money!"
           	end
           end
-          @mov_arr.select{|mov| arg.all?{|key, value| (mov.send(key).to_s).include?(value)}}
-          .map { |film| if film.period == "ancient"
-    	          "Now showing: " + film.tittle + " - old film(" + (film.year).to_s + " year) " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
-              elsif film.period == "classic"
-        	      a = film.producer
-        	      "Now showing: " + film.tittle + " - classic film, producer " + film.producer + " (" +(@mov_arr.map { |mov| if mov.producer == a
-        		  mov.tittle
-        	      end} - [arg]).compact.join("; ") + ") " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
-              elsif film.period == "modern"
-                  "Now showing: " + film.tittle + " - modern movie, actors " + (film.actors).join(", ") + " " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
-              elsif film.period == "new"
-                  "Now showing: " + film.tittle + " - novelty, premiere " + (2017 - film.year).to_s + " years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
-              end  }.shuffle.first
+          movie = self.filter(arg).sample
+          if movie.period == "new"
+          	puts "Now showing: " + movie.tittle + " - novelty, premiere " + (2017 - movie.year).to_s + " years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (movie.time * 60)).strftime("%T")
+          elsif movie.period == "classic"
+            a = film.producer
+        	puts "Now showing: " + film.tittle + " - classic film, producer " + film.producer + " (" +(@mov_arr.map { |mov| if mov.producer == a
+        	mov.tittle
+        	end} - [arg]).compact.join("; ") + ") " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
+          elsif movie.period == "ancient"
+          	puts "Now showing: " + film.tittle + " - old film(" + (film.year).to_s + " year) " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
+          elsif movie.period == "modern"
+          	puts "Now showing: " + film.tittle + " - modern movie, actors " + (film.actors).join(", ") + " " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
+          end
+          #.map { |film| if film.period == "ancient"
+    	  #        puts "Now showing: " + film.tittle + " - old film(" + (film.year).to_s + " year) " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
+          #    elsif film.period == "classic"
+         # 	      a = film.producer
+       # 	      puts "Now showing: " + film.tittle + " - classic film, producer " + film.producer + " (" +(@mov_arr.map { |mov| if mov.producer == a
+        #		  mov.tittle
+        #	      end} - [arg]).compact.join("; ") + ") " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
+         #     elsif film.period == "modern"
+          #        puts "Now showing: " + film.tittle + " - modern movie, actors " + (film.actors).join(", ") + " " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
+          #    elsif film.period == "new"
+          #        puts "Now showing: " + film.tittle + " - novelty, premiere " + (2017 - film.year).to_s + " years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
+          #    end  }.shuffle.first
       end
   end
 
@@ -88,9 +100,4 @@ class Netflix < MovieCollection
       	end
       end}.compact.join
   end
-
-  #def filter (arg)
-  #    @mov_arr.select{|mov| arg.all?{|key, value| value === mov.send(key)}}
-  #end
-
 end
