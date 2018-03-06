@@ -1,9 +1,6 @@
 require 'csv'
 require 'date'
 require 'time'
-load "modern_movie.rb"
-
-  KEYS = [:link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors]
 
 class Movie
     def initialize(movie, collection)
@@ -32,15 +29,15 @@ class Movie
         end
     end
 
-    def mov_class
-        if @period == "ancient"
-            AncientMovie.new(self, collection)
-        elsif @period == "classic"
-            ClassicMovie.new(self, collection)
-        elsif @period == "modern"
-            ModernMovie.new(self, collection)
-        elsif @period == "new"
-            NewMovie.new(self, collection)
+    def self.create(movie, collection)
+        if (1900..1945) === movie[:year]
+            AncientMovie.new(movie, collection)
+        elsif (1945..1968) === movie[:year]
+            ClassicMovie.new(movie, collection)
+        elsif (1968..2000) === movie[:year]
+            ModernMovie.new(movie, collection)
+        elsif (2000..2018) === movie[:year]
+            NewMovie.new(movie, collection)
         end
     end
 
