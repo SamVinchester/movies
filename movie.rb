@@ -1,6 +1,9 @@
 require 'csv'
 require 'date'
 require 'time'
+load "modern_movie.rb"
+
+  KEYS = [:link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors]
 
 class Movie
     def initialize(movie, collection)
@@ -29,8 +32,19 @@ class Movie
         end
     end
 
-    def has_genre?(arg)
+    def mov_class
+        if @period == "ancient"
+            AncientMovie.new(self, collection)
+        elsif @period == "classic"
+            ClassicMovie.new(self, collection)
+        elsif @period == "modern"
+            ModernMovie.new(self, collection)
+        elsif @period == "new"
+            NewMovie.new(self, collection)
+        end
+    end
 
+    def has_genre?(arg)
     	unless @collection.genres.include?(arg)
     		raise ArgumentError, "Genre is not found"
         end
@@ -39,6 +53,6 @@ class Movie
 
     attr_reader :link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors, :month, :period
     def to_s
-        "Movie: #{@tittle}, #{@genre}, #{@country}, #{@date}, #{@time}"
+        "Movie: #{@tittle}, #{@genre}, #{@country}, #{@date}, #{@time} min"
     end
 end
