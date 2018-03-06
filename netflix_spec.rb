@@ -1,6 +1,10 @@
 require "./movie.rb"
 require "./movie_collection.rb"
 require "./netflix.rb"
+require "./ancient_movie.rb"
+require "./classic_movie.rb"
+require "./modern_movie.rb"
+require "./new_movie.rb"
 
 describe Netflix do
   let(:netflix) { Netflix.new("movies.txt") }
@@ -18,12 +22,12 @@ describe Netflix do
 
     context 'when showing modern film' do
       subject { netflix.show("Jurassic Park") }
-      it { is_expected.to eq "Now showing: " + "Jurassic Park - modern movie, actors Sam Neill, Laura Dern, Jeff Goldblum" + " " + Time.now.strftime("%T") + " - " + (Time.now + (127 * 60)).strftime("%T")}
+      it { is_expected.to eq "Now showing: " + "Jurassic Park - modern movie, actors: Sam Neill, Laura Dern, Jeff Goldblum" + " " + Time.now.strftime("%T") + " - " + (Time.now + (127 * 60)).strftime("%T")}
     end
 
     context 'when showing new film' do
       subject { netflix.show("Prisoners") }
-      it { is_expected.to eq "Now showing: " + "Prisoners - novelty, premiere 4 years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (153 * 60)).strftime("%T")}
+      it { is_expected.to eq "Now showing: " + "Prisoners - novelty, premiere 5 years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (153 * 60)).strftime("%T")}
     end
 
     context 'when showing some film' do

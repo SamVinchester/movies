@@ -16,7 +16,7 @@ theatre = Theatre.new(ARGV[0] || "movies.txt")
 
 #puts netflix.balance
 #puts netflix.pay(25)
-#puts netflix.show("Diabolique")
+puts netflix.show("The Intouchables")
 #netflix.show(genre: "Comedy", period: "new")
 #puts netflix.balance
 #puts netflix.how_much?('The Terminator')
@@ -25,4 +25,4 @@ theatre = Theatre.new(ARGV[0] || "movies.txt")
 #puts theatre.when?('Psycho')
 #puts netflix.filter(genre: /Drama|Horror/)
 #theatre.show('The Terminator')
-puts netflix.all
+#puts netflix.all

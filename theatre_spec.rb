@@ -1,6 +1,10 @@
 require "./movie.rb"
 require "./movie_collection.rb"
 require "./theatre.rb"
+require "./ancient_movie.rb"
+require "./classic_movie.rb"
+require "./modern_movie.rb"
+require "./new_movie.rb"
 
 describe Theatre do
   let(:theatre) { Theatre.new("movies.txt") }

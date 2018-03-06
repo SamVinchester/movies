@@ -27,10 +27,11 @@ class Netflix < MovieCollection
         	      end} - [arg]).compact.join("; ") + ") " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
               elsif film.period == "modern"
               	  @balance -= 3
-                  "Now showing: " + film.tittle + " - modern movie, actors " + (film.actors).join(", ") + " " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
+                  "Now showing: " + film.to_s + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
               elsif film.period == "new"
               	  @balance -= 5
-                  "Now showing: " + film.tittle + " - novelty, premiere " + (2017 - film.year).to_s + " years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
+              	  "Now showing: " + film.to_s + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
+                # "Now showing: " + film.tittle + " - novelty, premiere " + (2017 - film.year).to_s + " years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (film.time * 60)).strftime("%T")
               end      	
            end }.compact.join
       elsif arg.class == Hash
