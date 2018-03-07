@@ -10,26 +10,7 @@ describe Netflix do
   let(:netflix) { Netflix.new("movies.txt") }
   describe '#show' do
     before { netflix.pay(100) }
-    context 'when showing ancient film' do
-      subject { netflix.show("Casablanca") }
-      it { is_expected.to eq "Now showing: Casablanca - old movie(1942 year)" + ' ' + Time.now.strftime("%T") + " - " + (Time.now + (102 * 60)).strftime("%T")}
-    end
-
-    context 'when showing classic film' do
-      subject { netflix.show("Diabolique") }
-      it { is_expected.to eq "Now showing: " + "Diabolique - classic film, producer Henri-Georges Clouzot (The Wages of Fear)" + " " + Time.now.strftime("%T") + " - " + (Time.now + (116 * 60)).strftime("%T")}
-    end
-
-    context 'when showing modern film' do
-      subject { netflix.show("Jurassic Park") }
-      it { is_expected.to eq "Now showing: " + "Jurassic Park - modern movie, actors: Sam Neill, Laura Dern, Jeff Goldblum" + " " + Time.now.strftime("%T") + " - " + (Time.now + (127 * 60)).strftime("%T")}
-    end
-
-    context 'when showing new film' do
-      subject { netflix.show("Prisoners") }
-      it { is_expected.to eq "Now showing: " + "Prisoners - novelty, premiere 5 years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (153 * 60)).strftime("%T")}
-    end
-
+    
     context 'when showing some film' do
       subject { netflix.show(genre: "Western", period: "new") }
       it { expect { subject }.to change{netflix.balance}.by(-5) }

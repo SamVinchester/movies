@@ -6,8 +6,8 @@ class NewMovie < Movie
   end
 
   def to_s
-  	"#{@tittle} - novelty, premiere " + (2018 - @year).to_s + " years ago! "
+  	"#{@tittle} - novelty, premiere " + (2018 - @year).to_s + " years ago! " + Time.now.strftime("%T") + " - " + (Time.now + (@time * 60)).strftime("%T")
   end
 
-  attr_accessor :cost
+  attr_accessor :cost, :time
 end
