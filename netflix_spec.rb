@@ -12,7 +12,7 @@ describe Netflix do
     before { netflix.pay(100) }
     context 'when showing ancient film' do
       subject { netflix.show("Casablanca") }
-      it { is_expected.to eq "Now showing: Casablanca - old film(1942 year)" + ' ' + Time.now.strftime("%T") + " - " + (Time.now + (102 * 60)).strftime("%T")}
+      it { is_expected.to eq "Now showing: Casablanca - old movie(1942 year)" + ' ' + Time.now.strftime("%T") + " - " + (Time.now + (102 * 60)).strftime("%T")}
     end
 
     context 'when showing classic film' do
@@ -44,7 +44,7 @@ describe Netflix do
 
     context 'when using filters' do
       subject { netflix.show(genre: "Western", period: "new") }
-      it { expect { subject }.to output("Now showing: Django Unchained - novelty, premiere 5 years ago!" + " " + Time.now.strftime("%T") + " - " + (Time.now + (165 * 60)).strftime("%T") + "\n").to_stdout}
+      it { expect { subject }.to output("Now showing: Django Unchained - novelty, premiere 6 years ago!" + " " + Time.now.strftime("%T") + " - " + (Time.now + (165 * 60)).strftime("%T") + "\n").to_stdout}
     end
     
   end

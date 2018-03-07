@@ -15,10 +15,10 @@ theatre = Theatre.new(ARGV[0] || "movies.txt")
 #puts theatre.show("Casablanca")
 
 #puts netflix.balance
-#puts netflix.pay(25)
-puts netflix.show("The Intouchables")
-#netflix.show(genre: "Comedy", period: "new")
-#puts netflix.balance
+puts netflix.pay(25)
+#puts netflix.show("The Intouchables")
+netflix.show(genre: "Comedy", period: "modern")
+puts netflix.balance
 #puts netflix.how_much?('The Terminator')
 #puts theatre.show('The Terminator')
 #puts theatre.show('09:00')

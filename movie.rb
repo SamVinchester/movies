@@ -30,13 +30,14 @@ class Movie
     end
 
     def self.create(movie, collection)
-        if (1900..1945) === movie[:year].to_i
+        case movie[:year].to_i
+          when 1900..1945
             AncientMovie.new(movie, collection)
-        elsif (1945..1968) === movie[:year].to_i
+          when 1945..1968
             ClassicMovie.new(movie, collection)
-        elsif (1968..2000) === movie[:year].to_i
+          when 1968..2000
             ModernMovie.new(movie, collection)
-        elsif (2000..2018) === movie[:year].to_i
+          when 2000..2018
             NewMovie.new(movie, collection)
         end
     end

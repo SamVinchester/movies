@@ -2,9 +2,10 @@ class AncientMovie < Movie
   
   def initialize(movie, collection)
   	super
+  	@cost = 1
   end
 
   def to_s
-  	"#{@tittle} - ancient film (#{@year})"	
+  	"#{@tittle} - old movie(#{@year} year) "	
   end
 end
