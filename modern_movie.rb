@@ -5,15 +5,6 @@ class ModernMovie < Movie
   	@cost = 3
   end
 
-  def sell
-  	p @balance
-  	if @balance >= @cost
-      @balance -= @cost
-    else
-      raise ArgumentError, "not enough money!"
-    end	
-  end
-
   def to_s
   	"#{@tittle} - modern movie, actors: " + @actors.join(", ") + " " + Time.now.strftime("%T") + " - " + (Time.now + (@time * 60)).strftime("%T")	
   end
