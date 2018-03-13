@@ -1,22 +1,13 @@
 require "./movie.rb"
 require "./movie_collection.rb"
 require "./theatre.rb"
-require "./ancient_movie.rb"
-require "./classic_movie.rb"
-require "./modern_movie.rb"
-require "./new_movie.rb"
 
 describe Theatre do
   let(:theatre) { Theatre.new("movies.txt") }
   describe '#show' do
-  	context 'when showing some film' do
-  	  subject { theatre.show("The Terminator")}
-      it { expect { subject }.to output("Now showing: The Terminator " + Time.now.strftime("%T") + " - " + (Time.now + (107 * 60)).strftime("%T") + "\n").to_stdout}
-    end
-
   	context 'when showing at morning' do
       it 'calls filters' do
-        expect(theatre).to receive(:filter).with(period: "ancient").and_call_original
+        expect(theatre).to receive(:filter).with(period: /ancient|classic/).and_call_original
         theatre.show('09:00')
       end
     end 
@@ -31,7 +22,7 @@ describe Theatre do
 end
 #describe Theatre do  
 #  before(:all) do
-#    @theatre = Theatre.new("movies.txt")
+#    @theatre = Theatre.new("movies.txt")theat
 #  end
 
 # it '.show' do
