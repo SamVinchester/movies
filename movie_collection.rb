@@ -14,7 +14,7 @@ class MovieCollection
   end
 
   def filter (arg)
-      @mov_arr.select{|mov| arg.all?{|key, value| value === mov.send(key)}}
+      @mov_arr.select{|mov| arg.all?{|key, value| mov.match?(key, value)}}
   end
 
   def stats (arg)

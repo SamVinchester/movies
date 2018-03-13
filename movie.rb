@@ -29,6 +29,10 @@ class Movie
         end
     end
 
+    def match?(key, value)
+      Array(send(key)).any? {|genre| value === genre}
+    end
+
     def self.create(movie, collection)
         case movie[:year].to_i
           when 1900..1945
