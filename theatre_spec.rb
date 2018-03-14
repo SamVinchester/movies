@@ -1,16 +1,31 @@
 require "./movie.rb"
 require "./movie_collection.rb"
 require "./theatre.rb"
+require "./ancient_movie.rb"
+require "./classic_movie.rb"
+require "./modern_movie.rb"
+require "./new_movie.rb"
+require "timecop"
 
 describe Theatre do
   let(:theatre) { Theatre.new("movies.txt") }
   describe '#show' do
+  before do
+    Timecop.freeze(Time.now)
+  end
+
   	context 'when showing at morning' do
       it 'calls filters' do
         expect(theatre).to receive(:filter).with(period: /ancient|classic/).and_call_original
         theatre.show('09:00')
       end
-    end 
+    end
+
+    context 'when using filters' do
+      subject { theatre.show("01:00") }
+      it { expect { subject }.to output("Now showing: Django Unchained - novelty, premiere 6 years ago!" + " " + Time.now.strftime("%T") + " - " + (Time.now + (165 * 60)).strftime("%T") + "\n").to_stdout}
+    end
+
   end
 
   describe'#when?' do

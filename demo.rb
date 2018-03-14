@@ -20,7 +20,7 @@ theatre = Theatre.new(ARGV[0] || "movies.txt")
 #puts netflix.balance
 #puts netflix.how_much?('The Terminator')
 #puts theatre.show('The Terminator')
-theatre.show('09:00')
+theatre.show('01:00')
 #puts theatre.when?('Psycho')
 #puts netflix.filter(genre: "Comedy", period: "new")
 #puts netflix.filter(genre: /Western|Horror/, period: "classic")
