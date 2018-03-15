@@ -3,18 +3,28 @@ class Theatre < MovieCollection
   	attr_accessor :shedule
   end
 
-  SCHEDULE = { (6..12) => { period: /ancient|classic/ }, (12..18) => { genre: /Comedy|Action/ }, (18..23) => { genre: /Drama|Horror/ }, (0..1) => { genre: "Western", period: "new" }, (1..6) => {genre: "Sport", period: "ancient"}}
+  SCHEDULE = { (6..12) => { period: /ancient|classic/ }, (12..18) => { genre: /Comedy|Action/ }, (18..23) => { genre: /Drama|Horror/ }, (0..1) => { genre: "Western", period: "new" }}
 
 
   def show (arg)
-    hour = arg.split(':').first.to_i
-    if (6..23).cover?(hour) || (0..1).cover?(hour)
-      puts "Now showing: " + self.filter(SCHEDULE.detect {|time, filters| time.cover?(hour)}[1]).sample.to_s
-    elsif (1..6).cover?(hour)
+
+    if arg.match?(/[0-2][0-3]:[0-5][0-9]/)
+      hour = arg.split(':').first.to_i
+    elsif arg.match?(/[0][1-6]:[0-5][0-9]/)
       puts "At this time movie is not shown"
-    else
-      puts "Incorrect time!"
+    else 
+      raise ArgumentError, "Incorrect time!"
     end
+
+    puts "Now showing: " + self.filter(SCHEDULE.detect {|time, filters| time.cover?(hour)}[1]).sample.to_s
+    #hour = arg.split(':').first.to_i
+    #if (6..23).cover?(hour) || (0..1).cover?(hour)
+    #  puts "Now showing: " + self.filter(SCHEDULE.detect {|time, filters| time.cover?(hour)}[1]).sample.to_s
+    #elsif (1..6).cover?(hour)
+    #  puts "At this time movie is not shown"
+    #else
+    #  puts "Incorrect time!"
+    #end
   end
 
   def when?(arg)
