@@ -10,9 +10,9 @@ require "timecop"
 describe Theatre do
   let(:theatre) { Theatre.new("movies.txt") }
   describe '#show' do
-  before do
-    Timecop.freeze(Time.now)
-  end
+    before do
+      Timecop.freeze(Time.now)
+    end
 
   	context 'when showing at morning' do
       it 'calls filters' do
@@ -26,6 +26,15 @@ describe Theatre do
       it { expect { subject }.to output("Now showing: Django Unchained - novelty, premiere 6 years ago!" + " " + Time.now.strftime("%T") + " - " + (Time.now + (165 * 60)).strftime("%T") + "\n").to_stdout}
     end
 
+    context 'when showing at night' do
+      subject { theatre.show("03:00") }
+      it { expect { subject }.to output("At this time movie is not shown\n").to_stdout }
+    end
+
+    context 'when using incorrect time' do
+      subject { theatre.show("2222") }
+      it { expect { subject }.to output("Incorrect time!\n").to_stdout }
+    end
   end
 
   describe'#when?' do

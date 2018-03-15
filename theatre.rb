@@ -3,12 +3,18 @@ class Theatre < MovieCollection
   	attr_accessor :shedule
   end
 
-  SCHEDULE = { (6..12) => { period: /ancient|classic/ }, (12..18) => { genre: /Comedy|Action/ }, (18..23) => { genre: /Drama|Horror/ }, (1..2) => { genre: "Western", period: "new" } }
+  SCHEDULE = { (6..12) => { period: /ancient|classic/ }, (12..18) => { genre: /Comedy|Action/ }, (18..23) => { genre: /Drama|Horror/ }, (0..1) => { genre: "Western", period: "new" }, (1..6) => {genre: "Sport", period: "ancient"}}
 
 
   def show (arg)
     hour = arg.split(':').first.to_i
-    puts "Now showing: " + self.filter(SCHEDULE.detect {|time, filters| time.cover?(hour)}[1]).sample.to_s
+    if (6..23).cover?(hour) || (0..1).cover?(hour)
+      puts "Now showing: " + self.filter(SCHEDULE.detect {|time, filters| time.cover?(hour)}[1]).sample.to_s
+    elsif (1..6).cover?(hour)
+      puts "At this time movie is not shown"
+    else
+      puts "Incorrect time!"
+    end
   end
 
   def when?(arg)
