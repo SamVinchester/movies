@@ -8,24 +8,16 @@ class Theatre < MovieCollection
 
   def show (arg)
 
-    if arg.match?(/[0][1-6]:[0-5][0-9]/)
+    m = arg.match(/^([0-2]\d):([0-5]\d)$/) or raise "Incorrect time!"
+    hour = m[1].to_i
+    raise "Incorrect time!" if hour > 23
+    _, search = SCHEDULE.detect {|time, filters|time.cover?(hour)}
+    if search.nil?
       puts "At this time movie is not shown"
-    elsif arg.match?(/[0-2][0-9]:[0-5][0-9]/)
-      hour = arg.split(':').first.to_i
-      puts "Now showing: " + self.filter(SCHEDULE.detect {|time, filters| time.cover?(hour)}[1]).sample.to_s
-    else 
-      raise ArgumentError, "Incorrect time!"
+    else
+      puts "Now showing: " + self.filter(search).sample.to_s
     end
 
-    #puts "Now showing: " + self.filter(SCHEDULE.detect {|time, filters| time.cover?(hour)}[1]).sample.to_s
-    #hour = arg.split(':').first.to_i
-    #if (6..23).cover?(hour) || (0..1).cover?(hour)
-    #  puts "Now showing: " + self.filter(SCHEDULE.detect {|time, filters| time.cover?(hour)}[1]).sample.to_s
-    #elsif (1..6).cover?(hour)
-    #  puts "At this time movie is not shown"
-    #else
-    #  puts "Incorrect time!"
-    #end
   end
 
   def when?(arg)

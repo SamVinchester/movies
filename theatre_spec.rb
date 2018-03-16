@@ -33,7 +33,7 @@ describe Theatre do
 
     context 'when using incorrect time' do
       subject { theatre.show("2222") }
-      it { expect { subject }.to output("Incorrect time!\n").to_stdout }
+      it { expect { subject }.to raise_error("Incorrect time!") }
     end
   end
 
