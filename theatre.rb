@@ -1,4 +1,7 @@
 class Theatre < MovieCollection
+
+  include Enumerable
+
   class << self
   	attr_accessor :shedule
   end

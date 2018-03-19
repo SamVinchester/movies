@@ -1,4 +1,9 @@
+$LOAD_PATH << '.'
+require 'cashbox.rb'
 class Netflix < MovieCollection
+
+	include Enumerable
+	include Cashbox
 
 	def initialize(arg)
 		super

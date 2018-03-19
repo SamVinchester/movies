@@ -1,4 +1,7 @@
 class MovieCollection
+
+  include Enumerable
+  
   KEYS = [:link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors]
   def initialize(arg)
       @mov_arr = CSV.read(arg, col_sep: "|")
