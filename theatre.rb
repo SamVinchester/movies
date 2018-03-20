@@ -1,19 +1,20 @@
 $LOAD_PATH << '.'
 require 'cashbox.rb'
+require 'money'
 
 class Theatre < MovieCollection
 
   include Enumerable
   include Cashbox
-
+  
   def initialize(arg)
     super
-    @balance = 0
+    @theatre_money = Money.new(10000, "USD")
   end
 
-  SCHEDULE = { (6..12) => { period: /ancient|classic/ }, (12..18) => { genre: /Comedy|Action/ }, (18..23) => { genre: /Drama|Horror/ }, (0..1) => { genre: "Western", period: "new" }}
-  COST = { (6..12) => 3, (12..18) => 5, (18..23) => 10}
+  attr_accessor :theatre_money
 
+  SCHEDULE = { (6..12) => { period: /ancient|classic/ }, (12..18) => { genre: /Comedy|Action/ }, (18..23) => { genre: /Drama|Horror/ }, (0..1) => { genre: "Western", period: "new" }}
 
   def show (arg)
 

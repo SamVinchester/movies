@@ -1,5 +1,6 @@
 $LOAD_PATH << '.'
 require 'cashbox.rb'
+require 'money'
 class Netflix < MovieCollection
 
 	include Enumerable
@@ -8,13 +9,15 @@ class Netflix < MovieCollection
 	def initialize(arg)
 		super
 		@balance = 0
+		@netflix_money = Money.new(0, "USD")
 	end
 
-	attr_accessor :balance
+	attr_accessor :balance, :netflix_money
 
-	def pay(arg)
-	    if arg.class == Integer
-	        @balance += arg
+	def pay(cents)
+	    if cents.class == Integer
+	        @balance += cents
+	        @netflix_money = @netflix_money + Money.new(cents, "USD")
 	    end
 	end
 
