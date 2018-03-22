@@ -25,8 +25,8 @@ theatre = Theatre.new(ARGV[0] || "movies.txt")
 #p netflix.cash
 #theatre.cash
 puts netflix.cash
-netflix.pay("hui")
-puts netflix.cash
+#netflix.pay(100)
+#puts netflix.cash
 #puts theatre.buy_ticket("Psycho", "09:00")
 #puts theatre.cash
 #puts theatre.take("Johny")

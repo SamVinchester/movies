@@ -9,7 +9,7 @@ class Netflix < MovieCollection
 	def initialize(arg)
 		super
 		@balance = 0
-		@money = Money.new(0, "USD").cents
+		#@money = Money.new(0, "USD").cents
 	end
 
 	attr_accessor :balance, :money

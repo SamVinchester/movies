@@ -1,17 +1,19 @@
 require 'money'
+require 'netflix.rb'
 module Cashbox
   
+  def self.included (mod)
+    @money = Money.new(0, "USD").cents
+  end
+
   def cash
     @money
   end
 
   def pay(cents)
-    if cents.is_a?(Integer)
-      @money += cents
-      @balance += cents
-    else
-      raise "Incorrect pay"
-    end
+    raise "Incorrect pay" if cents.is_a?(String)
+    @money += cents
+    @balance += cents
   end
 
   def take (who)
