@@ -12,7 +12,7 @@ class Netflix < MovieCollection
 		@money = Money.new(0, "USD").cents
 	end
 
-	attr_accessor :balance
+	attr_accessor :balance, :money
 
   def show (arg)
     movie = self.filter(arg).sample

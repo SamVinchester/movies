@@ -6,16 +6,18 @@ module Cashbox
   end
 
   def pay(cents)
-    if cents.class == Integer
+    if cents.is_a?(Integer)
       @money += cents
       @balance += cents
+    else
+      raise "Incorrect pay"
     end
   end
 
   def take (who)
     if who == "Bank"
-      "Encashment complete!"
       @money = 0
+      "Encashment complete!"
     else
       raise "Unknown collector! Calling to police..."
     end

@@ -6,6 +6,7 @@ require "./classic_movie.rb"
 require "./modern_movie.rb"
 require "./new_movie.rb"
 require "timecop"
+require "cashbox.rb"
 
 describe Theatre do
   let(:theatre) { Theatre.new("movies.txt") }
@@ -37,7 +38,7 @@ describe Theatre do
     end
   end
 
-  describe'#when?' do
+  describe '#when?' do
   	context 'using when?' do
   	  subject { theatre.when?("The Terminator") }
   	  it { is_expected.to eq "You can watch this movie at any time" }

@@ -12,6 +12,8 @@ class Theatre < MovieCollection
     @money = Money.new(10000, "USD").cents
   end
 
+  attr_accessor :money
+
   SCHEDULE = { (6..12) => { period: /ancient|classic/ }, (12..18) => { genre: /Comedy|Action/ }, (18..23) => { genre: /Drama|Horror/ }, (0..1) => { genre: "Western", period: "new" }}
   COST = { (6..12) => Money.new(300, "USD").cents, (12..18) => Money.new(500, "USD").cents, (18..23) => Money.new(700, "USD").cents }
 
