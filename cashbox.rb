@@ -2,7 +2,7 @@ require 'money'
 module Cashbox
   
   def cash
-    puts @money
+    @money
   end
 
   def pay(cents)
@@ -13,15 +13,11 @@ module Cashbox
   end
 
   def take (who)
-    begin
     if who == "Bank"
-      puts "Encashment complete!"
+      "Encashment complete!"
       @money = 0
     else
-      raise "error"
-    end
-    rescue RuntimeError
-      puts "Unknown collector! Calling to police..."
+      raise "Unknown collector! Calling to police..."
     end
   end
 
