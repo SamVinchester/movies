@@ -14,19 +14,20 @@ netflix = Netflix.new(ARGV[0] || "movies.txt")
 theatre = Theatre.new(ARGV[0] || "movies.txt")
 
 #puts netflix.balance
-netflix.pay(200)
+#netflix.pay(200)
 #netflix.show(genre: "Comedy", period: "new")
 #netflix.show(genre: "Western", period: "classic")
 #puts netflix.balance
 #puts netflix.how_much?('The Terminator')
 #theatre.show("09:00")
 #puts theatre.when?('Psycho')
+#theatre.cash
+#p netflix.cash
+#theatre.cash
 #netflix.cash
-#theatre.buy_ticket( "The Terminator", "09:00")
-#theatre.buy_ticket( "Casablanca", "15:00")
-#theatre.cash("Theatre")
-#theatre.take("Bank")
-#theatre.cash("Theatre")
-netflix.cash("Netflix")
-netflix.take("John")
-netflix.cash("Netflix")
+#netflix.pay(150)
+#netflix.cash
+theatre.buy_ticket("Psycho", "09:00")
+theatre.cash
+theatre.take("Bank")
+theatre.cash

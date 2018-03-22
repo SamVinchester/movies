@@ -9,17 +9,10 @@ class Netflix < MovieCollection
 	def initialize(arg)
 		super
 		@balance = 0
-		@netflix_money = Money.new(0, "USD")
+		@money = Money.new(0, "USD").cents
 	end
 
-	attr_accessor :balance, :netflix_money
-
-	def pay(cents)
-	    if cents.class == Integer
-	        @balance += cents
-	        @netflix_money = @netflix_money + Money.new(cents, "USD")
-	    end
-	end
+	attr_accessor :balance
 
   def show (arg)
     movie = self.filter(arg).sample
@@ -33,16 +26,16 @@ class Netflix < MovieCollection
 
 
   def how_much?(arg)
-      @mov_arr.map{|film| if film.tittle == arg
-      	if film.period == "ancient"
-      		"cost of the film is 1$"
-      	elsif film.period == "classic"
-      		"cost of the film is 1.5$"
-      	elsif film.period == "modern"
-      		"cost of the film is 3$"
-      	elsif film.period == "new"
-      		"cost of the film is 5$"
-      	end
-      end}.compact.join
+    @mov_arr.map{|film| if film.tittle == arg
+      if film.period == "ancient"
+        "cost of the film is 1$"
+      elsif film.period == "classic"
+        "cost of the film is 1.5$"
+      elsif film.period == "modern"
+      	"cost of the film is 3$"
+      elsif film.period == "new"
+      	"cost of the film is 5$"
+      end
+    end}.compact.join
   end
 end
