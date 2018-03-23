@@ -37,7 +37,7 @@ theatre = Theatre.new(ARGV[0] || "movies.txt")
 puts Netflix.cash # => 0
 n1 = Netflix.new(ARGV[0] || "movies.txt")
 puts n1.pay(20)
-#Netflix.cash # => 20
+puts Netflix.cash # => 20
 #n2 = Netflix.new(ARGV[0] || "movies.txt")
 #n2.pay(30)
 #Netflix.cash  # => 50

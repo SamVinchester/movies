@@ -6,13 +6,6 @@ module Cashbox
     @money
   end
 
-  def pay(cents)
-    raise "Incorrect pay" unless cents.is_a?(Integer)
-    @money += cents
-    @balance = 0
-    @balance += cents
-  end
-
   def take (who)
     raise "Unknown collector! Calling to police..." if who != "Bank"
     @money = 0

@@ -4,7 +4,6 @@ require 'money'
 class Netflix < MovieCollection
 
 	include Enumerable
-	include Cashbox
 	extend Cashbox
 
 	def initialize(arg)
@@ -13,6 +12,12 @@ class Netflix < MovieCollection
 	end
 
 	attr_accessor :balance, :money
+
+  def pay(cents)
+    raise "Incorrect pay" unless cents.is_a?(Integer)
+    @balance = 0
+    @balance += cents
+  end
 
   def show (arg)
     movie = self.filter(arg).sample
