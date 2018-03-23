@@ -2,23 +2,21 @@ require 'money'
 module Cashbox
 
   def cash
-    @money = Money.new(0, "USD").cents if @money.nil?
+    @money ||= Money.new(0, "USD").cents
     @money
   end
 
   def pay(cents)
-    raise "Incorrect pay" if cents.is_a?(String)
+    raise "Incorrect pay" unless cents.is_a?(Integer)
     @money += cents
+    @balance = 0
     @balance += cents
   end
 
   def take (who)
-    if who == "Bank"
-      @money = 0
-      "Encashment complete!"
-    else
-      raise "Unknown collector! Calling to police..."
-    end
+    raise "Unknown collector! Calling to police..." if who != "Bank"
+    @money = 0
+    "Encashment complete!"
   end
 
 end

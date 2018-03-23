@@ -5,6 +5,7 @@ class Netflix < MovieCollection
 
 	include Enumerable
 	include Cashbox
+	extend Cashbox
 
 	def initialize(arg)
 		super

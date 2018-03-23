@@ -7,14 +7,14 @@ require "./modern_movie.rb"
 require "./new_movie.rb"
 
 describe Netflix do
-  before { netflix.cash }
+  before { Netflix.cash }
   let(:netflix) { Netflix.new("movies.txt") }
   describe '#show' do
-    before { netflix.pay(100) }
+    before { Netflix.pay(100) }
 
     context 'when showing some film' do
       subject { netflix.show(genre: "Western", period: "new") }
-      it { expect { subject }.to change{netflix.balance}.by(-5) }
+      it { expect { subject }.to change{Netflix.balance}.by(-5) }
     end
 
     context 'when using filters' do
@@ -42,7 +42,7 @@ describe Netflix do
       subject { netflix.pay("Nothing") }
       it { expect { subject }.to raise_error(RuntimeError, "Incorrect pay")}
     end
-    
+
     context 'when pay' do
       subject { netflix.pay(25) }
       it {is_expected.to eq netflix.balance}
