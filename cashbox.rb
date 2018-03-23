@@ -1,12 +1,8 @@
 require 'money'
-require 'netflix.rb'
 module Cashbox
-  
-  def self.included (mod)
-    @money = Money.new(0, "USD").cents
-  end
 
   def cash
+    @money = Money.new(0, "USD").cents if @money.nil?
     @money
   end
 

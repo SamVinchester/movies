@@ -9,7 +9,7 @@ class Theatre < MovieCollection
   
   def initialize(arg)
     super
-    @money = Money.new(10000, "USD").cents
+    #@money = Money.new(10000, "USD").cents
   end
 
   attr_accessor :money

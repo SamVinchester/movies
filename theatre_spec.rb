@@ -44,6 +44,26 @@ describe Theatre do
   	  it { is_expected.to eq "You can watch this movie at any time" }
   	end
   end
+
+  describe '#buy_ticket' do
+    before { theatre.cash }
+    context 'when add cash' do
+      subject { theatre.buy_ticket("Psycho", "09:00") }
+      it { expect { subject }.to change{theatre.money}.by(+300) }
+    end
+
+    context 'when buy ticket' do
+      subject { theatre.buy_ticket("Psycho", "09:00") }
+      it { is_expected. to eq "You bought ticket on Psycho" }
+    end
+  end
+
+  describe '#take(who)' do
+    context 'when bank take money' do
+      subject { theatre.take("Bank") }
+      it { expect { subject }.to change{theatre.money}.to(0) }
+    end
+  end
 end
 #describe Theatre do  
 #  before(:all) do
