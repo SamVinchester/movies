@@ -9,7 +9,8 @@ require "./cashbox.rb"
 
 describe Netflix do
   before { Netflix.cash }
-  let(:netflix) { Netflix.new("movies.txt") { extend Cashbox }}
+  let(:netflix) { Netflix.new("movies.txt")}
+  let(:netflix2) { Netflix.new("movies.txt")}
   describe '#show' do
     before { netflix.pay(100) }
 
@@ -35,9 +36,9 @@ describe Netflix do
   describe '#pay' do
     before { Netflix.cash }
 
-    context 'when pay 100' do
-      subject { Netflix.pay(20) }
-      it { expect { subject }.to change{money}.by(+20)}
+    context 'when pay netflix' do
+      it { expect { netflix.pay(20)
+      netflix2.pay(40) }.to change{Netflix.cash}.by(+60)}
     end
 
     context 'when pay 100' do

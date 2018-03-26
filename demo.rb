@@ -12,6 +12,7 @@ load "new_movie.rb"
 load "cashbox.rb"
 netflix = Netflix.new(ARGV[0] || "movies.txt")
 theatre = Theatre.new(ARGV[0] || "movies.txt")
+theatre2 = Theatre.new(ARGV[0] || "movies.txt")
 
 #puts netflix.balance
 #netflix.pay(200)
@@ -27,7 +28,8 @@ theatre = Theatre.new(ARGV[0] || "movies.txt")
 puts theatre.cash
 puts theatre.buy_ticket("Psycho", "09:00")
 puts theatre.cash
-puts theatre.buy_ticket("The Terminator", "15:00")
+puts theatre2.cash
+puts theatre2.buy_ticket("The Terminator", "15:00")
 puts theatre.cash
 puts theatre.take("Bank")
 puts theatre.cash

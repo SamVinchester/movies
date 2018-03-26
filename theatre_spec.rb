@@ -9,7 +9,8 @@ require "timecop"
 require "cashbox.rb"
 
 describe Theatre do
-  let(:theatre) { Theatre.new("movies.txt") { include Cashbox } }
+  let(:theatre) { Theatre.new("movies.txt") }
+  let(:theatre2) { Theatre.new("movies.txt") }
   describe '#show' do
     before do
       Timecop.freeze(Time.now)
@@ -47,6 +48,11 @@ describe Theatre do
 
   describe '#buy_ticket' do
     before { theatre.cash }
+
+    context 'when buy ticket' do
+      it { expect { theatre.buy_ticket("Psycho", "09:00")}.to change{theatre.cash}.by(300)}
+    end
+
     context 'when add cash' do
       subject { theatre.buy_ticket("Psycho", "09:00") }
       it { expect { subject }.to change{theatre.money}.by(+300) }
