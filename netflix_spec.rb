@@ -10,11 +10,11 @@ describe Netflix do
   before { Netflix.cash }
   let(:netflix) { Netflix.new("movies.txt") }
   describe '#show' do
-    before { Netflix.pay(100) }
+    before { netflix.pay(100) }
 
     context 'when showing some film' do
       subject { netflix.show(genre: "Western", period: "new") }
-      it { expect { subject }.to change{Netflix.balance}.by(-5) }
+      it { expect { subject }.to change{netflix.balance}.by(-5) }
     end
 
     context 'when using filters' do
@@ -32,20 +32,15 @@ describe Netflix do
   end
 
   describe '#pay' do
-    before { netflix.cash }
+    before { Netflix.cash }
     context 'when pay 100' do
       subject { netflix.pay(100) }
-      it { expect { subject }.to change{netflix.money}.by(+100) }
+      it { expect { subject }.to change{netflix.balance}.by(+100) }
     end
 
     context 'when incorrect pay' do
       subject { netflix.pay("Nothing") }
       it { expect { subject }.to raise_error(RuntimeError, "Incorrect pay")}
-    end
-
-    context 'when pay' do
-      subject { netflix.pay(25) }
-      it {is_expected.to eq netflix.balance}
     end
   end
 

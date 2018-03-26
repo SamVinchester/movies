@@ -11,12 +11,12 @@ class Netflix < MovieCollection
 		@balance = 0
 	end
 
-	attr_accessor :balance, :money
+	attr_accessor :balance
 
   def pay(cents)
     raise "Incorrect pay" unless cents.is_a?(Integer)
-    @balance = 0
     @balance += cents
+    Netflix.pay(cents)
   end
 
   def show (arg)
