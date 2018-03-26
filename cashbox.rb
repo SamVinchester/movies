@@ -5,16 +5,11 @@ module Cashbox
 
   def cash
     @money ||= Money.new(0, "USD").cents
-    @money
   end
 
   def pay(cents)
     raise "Incorrect pay" unless cents.is_a?(Integer)
     @money += cents
-  end
-
-  def buy_theatre(sale)
-    @money = @money + sale
   end
 
   def take (who)

@@ -14,6 +14,7 @@ class Netflix < MovieCollection
 	attr_accessor :balance
 
   def pay(cents)
+  	Netflix.cash
     raise "Incorrect pay" unless cents.is_a?(Integer)
     @balance += cents
     self.class.pay(cents)
