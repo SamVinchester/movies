@@ -9,7 +9,7 @@ require "timecop"
 require "cashbox.rb"
 
 describe Theatre do
-  let(:theatre) { Theatre.new("movies.txt") }
+  let(:theatre) { Theatre.new("movies.txt") { include Cashbox } }
   describe '#show' do
     before do
       Timecop.freeze(Time.now)

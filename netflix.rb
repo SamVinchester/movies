@@ -16,7 +16,7 @@ class Netflix < MovieCollection
   def pay(cents)
     raise "Incorrect pay" unless cents.is_a?(Integer)
     @balance += cents
-    Netflix.pay(cents)
+    self.class.pay(cents)
   end
 
   def show (arg)

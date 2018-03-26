@@ -9,7 +9,6 @@ class Theatre < MovieCollection
   
   def initialize(arg)
     super
-    #@money = Money.new(10000, "USD").cents
   end
 
   attr_accessor :money
@@ -19,12 +18,11 @@ class Theatre < MovieCollection
 
   def buy_ticket (movie, time)
     sale = COST.detect {|period, cost| period.cover?(time.to_i)}[1]
-    @money = @money + sale
+    self.buy_theatre(sale)
     "You bought ticket on " + @mov_arr.map { |film| film.tittle if film.tittle == movie}.compact.join
   end
 
   def show (arg)
-
     m = arg.match(/^([0-2]\d):([0-5]\d)$/) or raise "Incorrect time!"
     hour = m[1].to_i
     raise "Incorrect time!" if hour > 23
@@ -34,7 +32,6 @@ class Theatre < MovieCollection
     else
       puts "Now showing: " + self.filter(search).sample.to_s
     end
-
   end
 
   def when?(arg)
