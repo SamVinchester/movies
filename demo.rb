@@ -1,15 +1,15 @@
 require 'csv'
 require 'date'
 require 'money'
-load "movie.rb"
-load "movie_collection.rb"
-load "netflix.rb"
-load "theatre.rb"
-load "ancient_movie.rb"
-load "classic_movie.rb"
-load "modern_movie.rb"
-load "new_movie.rb"
-load "cashbox.rb"
+load 'movie.rb'
+load 'movie_collection.rb'
+load 'netflix.rb'
+load 'theatre.rb'
+load 'ancient_movie.rb'
+load 'classic_movie.rb'
+load 'modern_movie.rb'
+load 'new_movie.rb'
+load 'cashbox.rb'
 netflix = Netflix.new(ARGV[0] || "movies.txt")
 theatre = Theatre.new(ARGV[0] || "movies.txt")
 theatre2 = Theatre.new(ARGV[0] || "movies.txt")

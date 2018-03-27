@@ -29,7 +29,6 @@ class Netflix < MovieCollection
     puts "Now showing: " + movie.to_s
   end
 
-
   def how_much?(arg)
     @mov_arr.map{|film| if film.tittle == arg
       if film.period == "ancient"
