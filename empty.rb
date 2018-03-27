@@ -1,7 +1,5 @@
 $LOAD_PATH << '.'
 require 'cashbox.rb'
 class Empty
-
-include Cashbox
-
+  include Cashbox
 end
