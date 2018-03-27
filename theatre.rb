@@ -17,9 +17,8 @@ class Theatre < MovieCollection
   COST = { (6..12) => Money.new(300, "USD").cents, (12..18) => Money.new(500, "USD").cents, (18..23) => Money.new(700, "USD").cents }
 
   def buy_ticket (movie, time)
-  	self.cash
     sale = COST.detect {|period, cost| period.cover?(time.to_i)}[1]
-    @money = @money + sale
+    self.pay(sale)
     "You bought ticket on " + @mov_arr.map { |film| film.tittle if film.tittle == movie}.compact.join
   end
 

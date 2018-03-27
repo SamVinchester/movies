@@ -8,6 +8,7 @@ module Cashbox
   end
 
   def pay(cents)
+    @money = cash
     raise "Incorrect pay" unless cents.is_a?(Integer)
     @money += cents
   end
