@@ -1,6 +1,6 @@
-$LOAD_PATH << '.'
-require 'cashbox.rb'
+require_relative 'cashbox.rb'
 require 'money'
+
 class Netflix < MovieCollection
   include Enumerable
   extend Cashbox
@@ -20,11 +20,8 @@ class Netflix < MovieCollection
 
   def show(arg)
     movie = filter(arg).sample
-    if @balance >= movie.cost
-      @balance -= movie.cost
-    else
-      raise ArgumentError, 'not enough money!'
-    end
+    raise ArgumentError, 'not enough money!' unless @balance >= movie.cost
+    @balance -= movie.cost
     puts 'Now showing: ' + movie.to_s
   end
 

@@ -1,15 +1,15 @@
 require 'csv'
 require 'date'
 require 'money'
-load 'movie.rb'
-load 'movie_collection.rb'
-load 'netflix.rb'
-load 'theatre.rb'
-load 'ancient_movie.rb'
-load 'classic_movie.rb'
-load 'modern_movie.rb'
-load 'new_movie.rb'
-load 'cashbox.rb'
+require_relative 'movie.rb'
+require_relative 'movie_collection.rb'
+require_relative 'netflix.rb'
+require_relative 'theatre.rb'
+require_relative 'ancient_movie.rb'
+require_relative 'classic_movie.rb'
+require_relative 'modern_movie.rb'
+require_relative 'new_movie.rb'
+require_relative 'cashbox.rb'
 netflix = Netflix.new(ARGV[0] || 'movies.txt')
 theatre = Theatre.new(ARGV[0] || 'movies.txt')
 
@@ -24,18 +24,20 @@ theatre = Theatre.new(ARGV[0] || 'movies.txt')
 # theatre.cash
 # p netflix.cash
 
-# puts theatre.cash
-# puts theatre.buy_ticket("Psycho", "09:00")
-# puts theatre.cash
-# puts theatre.buy_ticket("The Terminator", "15:00")
-# puts theatre.cash
-# puts theatre.take("Bank")
-# puts theatre.cash
+puts theatre.cash
+puts theatre.buy_ticket('Psycho', '09:00')
+puts theatre.cash
+puts theatre.buy_ticket('The Terminator', '15:00')
+puts theatre.cash
+puts theatre.take('Bank')
+puts theatre.cash
 
 # puts Netflix.cash
-netflix.pay(55)
-puts Netflix.cash
-netflix.pay(45)
-puts Netflix.cash
-puts Netflix.take('Bank')
-puts Netflix.cash
+# netflix.pay(55)
+# puts Netflix.cash
+# netflix.pay(45)
+# puts Netflix.cash
+# puts Netflix.take('Bank')
+# puts Netflix.cash
+
+# puts theatre.when?('Pulp Fiction')

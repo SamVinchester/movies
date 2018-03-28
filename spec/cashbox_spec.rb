@@ -1,4 +1,4 @@
-require './empty.rb'
+require '../empty.rb'
 
 describe Cashbox do
   let(:empty) { Empty.new }

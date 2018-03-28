@@ -1,4 +1,4 @@
-require './movie.rb'
+require '../movie.rb'
 
 describe Movie do
   describe '#period' do

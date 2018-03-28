@@ -1,5 +1,4 @@
-$LOAD_PATH << '.'
-require 'cashbox.rb'
+require_relative 'cashbox.rb'
 require 'money'
 
 class Theatre < MovieCollection
@@ -12,8 +11,14 @@ class Theatre < MovieCollection
 
   attr_accessor :money
 
-  SCHEDULE = { (6..12) => { period: /ancient|classic/ }, (12..18) => { genre: /Comedy|Action/ }, (18..23) => { genre: /Drama|Horror/ }, (0..1) => { genre: 'Western', period: 'new' } }.freeze
-  COST = { (6..12) => Money.new(300, 'USD').cents, (12..18) => Money.new(500, 'USD').cents, (18..23) => Money.new(700, 'USD').cents }.freeze
+  SCHEDULE = { (6..12) => { period: /ancient|classic/ },
+               (12..18) => { genre: /Comedy|Action/ },
+               (18..23) => { genre: /Drama|Horror/ },
+               (0..1) => { genre: 'Western', period: 'new' } }.freeze
+
+  COST = { (6..12) => Money.new(300, 'USD').cents,
+           (12..18) => Money.new(500, 'USD').cents,
+           (18..23) => Money.new(700, 'USD').cents }.freeze
 
   def buy_ticket(movie, time)
     sale = COST.detect { |period, _cost| period.cover?(time.to_i) }[1]
@@ -34,16 +39,14 @@ class Theatre < MovieCollection
   end
 
   def when?(arg)
-    @mov_arr.map do |film|
-      if film.tittle == arg && (film.period == 'ancient' || film.period == 'classic')
-        'You can watch this movie in the morning'
-      elsif film.tittle == arg && (film.genre.include?('Comedy') || film.genre.include?('Adventure'))
-        'You can watch this movie in the afternoon'
-      elsif film.tittle == arg && (film.genre.include?('Drama') || film.genre.include?('Horror'))
-        'You can watch this movie in the evening'
-      elsif film.tittle == arg
-        'You can watch this movie at any time'
-      end
-    end .compact.join
+    if filter(period: /ancient|classic/).any? { |film| film.tittle.include?(arg) }
+      'You can watch this movie in the morning'
+    elsif filter(genre: /Comedy|Adventure/).any? { |film| film.tittle.include?(arg) }
+      'You can watch this movie in the afternoon'
+    elsif filter(genre: /Drama|Horror/).any? { |film| film.tittle.include?(arg) }
+      'You can watch this movie in the evening'
+    else
+      'You can watch this movie at any time'
+    end
   end
 end

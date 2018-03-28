@@ -1,12 +1,12 @@
-require './movie.rb'
-require './movie_collection.rb'
-require './theatre.rb'
-require './ancient_movie.rb'
-require './classic_movie.rb'
-require './modern_movie.rb'
-require './new_movie.rb'
+require '../movie.rb'
+require '../movie_collection.rb'
+require '../theatre.rb'
+require '../ancient_movie.rb'
+require '../classic_movie.rb'
+require '../modern_movie.rb'
+require '../new_movie.rb'
 require 'timecop'
-require 'cashbox.rb'
+require '../cashbox.rb'
 
 describe Theatre do
   let(:theatre) { Theatre.new('movies.txt') }
@@ -55,7 +55,7 @@ describe Theatre do
 
     context 'when add cash' do
       subject { theatre.buy_ticket('Psycho', '09:00') }
-      it { expect { subject }.to change { theatre.money }.by(+300) }
+      it { expect { subject }.to change { theatre.cash }.by(+300) }
     end
 
     context 'when buy ticket' do
@@ -67,7 +67,7 @@ describe Theatre do
   describe '#take(who)' do
     context 'when bank take money' do
       subject { theatre.take('Bank') }
-      it { expect { subject }.to change { theatre.money }.to(0) }
+      it { expect { subject }.to change { theatre.cash }.by(0) }
     end
   end
 end

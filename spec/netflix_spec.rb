@@ -1,11 +1,11 @@
-require './movie.rb'
-require './movie_collection.rb'
-require './netflix.rb'
-require './ancient_movie.rb'
-require './classic_movie.rb'
-require './modern_movie.rb'
-require './new_movie.rb'
-require './cashbox.rb'
+require '../movie.rb'
+require '../movie_collection.rb'
+require '../netflix.rb'
+require '../ancient_movie.rb'
+require '../classic_movie.rb'
+require '../modern_movie.rb'
+require '../new_movie.rb'
+require '../cashbox.rb'
 
 describe Netflix do
   before { Netflix.cash }

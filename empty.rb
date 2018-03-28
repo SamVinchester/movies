@@ -1,5 +1,4 @@
-$LOAD_PATH << '.'
-require 'cashbox.rb'
+require_relative 'cashbox.rb'
 class Empty
   include Cashbox
 end

@@ -3,7 +3,7 @@ require 'date'
 require 'time'
 
 class Movie
-  def initialize(movie, collection)
+  def initialize(movie, collection) # rubocop:disable Metrics/MethodLength
     @link = movie[:link]
     @tittle = movie[:tittle]
     @year = movie[:year].to_i
