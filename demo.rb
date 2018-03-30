@@ -14,7 +14,7 @@ netflix = Netflix.new(ARGV[0] || 'movies.txt')
 theatre = Theatre.new(ARGV[0] || 'movies.txt')
 
 # puts netflix.balance
-# netflix.pay(200)
+ netflix.pay(200)
 # netflix.show(genre: "Comedy", period: "new")
 # netflix.show(genre: "Western", period: "classic")
 # puts netflix.balance
@@ -24,13 +24,13 @@ theatre = Theatre.new(ARGV[0] || 'movies.txt')
 # theatre.cash
 # p netflix.cash
 
-puts theatre.cash
-puts theatre.buy_ticket('Psycho', '09:00')
-puts theatre.cash
-puts theatre.buy_ticket('The Terminator', '15:00')
-puts theatre.cash
-puts theatre.take('Bank')
-puts theatre.cash
+#puts theatre.cash
+#puts theatre.buy_ticket('Psycho', '09:00')
+#puts theatre.cash
+#puts theatre.buy_ticket('The Terminator', '15:00')
+#puts theatre.cash
+#puts theatre.take('Bank')
+#puts theatre.cash
 
 # puts Netflix.cash
 # netflix.pay(55)
@@ -40,4 +40,5 @@ puts theatre.cash
 # puts Netflix.take('Bank')
 # puts Netflix.cash
 
-# puts theatre.when?('Pulp Fiction')
+puts netflix.show { |movie| !movie.tittle.include?('Terminator') && movie.genre.include?('Action') && movie.year > 2003 }
+#puts netflix.filter(genre: 'Comedy').sample.tittle
