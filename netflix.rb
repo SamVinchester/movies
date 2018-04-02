@@ -20,13 +20,20 @@ class Netflix < MovieCollection
 
   def show(arg=nil, &block)
     if block_given?
-      @mov_arr.select{ |movie| yield(movie) }.sample
-    else
+      puts @mov_arr.select{ |movie| yield(movie) }.sample
+    elsif arg.value?(true)
+      self.show(&@filters.values[0])
+    elsif
       movie = filter(arg).sample
       raise ArgumentError, 'not enough money!' unless @balance >= movie.cost
       @balance -= movie.cost
       puts 'Now showing: ' + movie.to_s
     end
+  end
+
+  def define_filter(arg, &block)
+    @filters = { }
+    @filters[arg] = block
   end
 
   def how_much?(arg)
