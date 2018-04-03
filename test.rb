@@ -1,8 +1,6 @@
-def try  
-  if block_given?  
-    yield  
-  else  
-    puts "no block"  
-  end  
+def testing(arg)
+  if p arg.values[0].class == Integer
+    puts 'value is a ' + arg.values[0].to_s
+  end
 end
-try { puts "hello Mike!" }
+testing(bbb: 2010)

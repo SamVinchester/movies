@@ -20,8 +20,11 @@ class Netflix < MovieCollection
 
   def show(arg=nil, &block)
     if block_given?
-      puts @mov_arr.select{ |movie| yield(movie) }.sample
+      puts @mov_arr.select{ |movie| yield(movie, @year) }.sample
     elsif arg.value?(true)
+      self.show(&@filters.values[0])
+    elsif arg.values[0].is_a?(Integer)
+      @year = arg.values[0]
       self.show(&@filters.values[0])
     elsif
       movie = filter(arg).sample

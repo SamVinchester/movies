@@ -40,8 +40,7 @@ theatre = Theatre.new(ARGV[0] || 'movies.txt')
 # puts Netflix.take('Bank')
 # puts Netflix.cash
 
-#netflix.show { |movie| !movie.tittle.include?('Terminator') && movie.genre.include?('Action') && movie.year > 2003 }
-#puts netflix.filter(genre: 'Comedy').sample.tittle
-netflix.define_filter(:new_sci_fi) {|movie| movie.tittle.include?('Terminator')}
-netflix.show(new_sci_fi: true)
-#p netflix.define_filter(:my_f) {|movie| movie.tittle.include?('Terminator')}
+netflix.define_filter(:new_sci_fi) {|movie, year| movie.year > year && !movie.tittle.include?('Terminator')}
+netflix.show(new_sci_fi: 2010)
+#netflix.define_filter(:new_sci_fi) {|movie| movie.tittle.include?('Terminator')}
+#netflix.show(new_sci_fi: true)
