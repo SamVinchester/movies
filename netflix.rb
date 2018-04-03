@@ -35,8 +35,8 @@ class Netflix < MovieCollection
   end
 
   def define_filter(arg, &block)
-    @filters = {}
-    @filters[arg] = block
+    @filters ||= { }
+    @filters.merge!(arg => block)
   end
 
   def how_much?(arg)

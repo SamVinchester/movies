@@ -2,6 +2,7 @@ class AncientMovie < Movie
   def initialize(movie, collection)
     super
     @cost = 1
+    @period = 'ancient'
   end
 
   def to_s

@@ -3,7 +3,7 @@ require 'date'
 require 'time'
 
 class Movie
-  def initialize(movie, collection) # rubocop:disable Metrics/MethodLength
+  def initialize(movie, collection)
     @link = movie[:link]
     @tittle = movie[:tittle]
     @year = movie[:year].to_i
@@ -16,15 +16,15 @@ class Movie
     @actors = movie[:actors].split(',')
     @month = Date._strptime(movie[:date], '%Y-%m')[:mon] if movie[:date].length > 6
     @collection = collection
-    if (1900..1945).cover?(movie[:year].to_i)
-      @period = 'ancient'
-    elsif (1945..1968).cover?(movie[:year].to_i)
-      @period = 'classic'
-    elsif (1968..2000).cover?(movie[:year].to_i)
-      @period = 'modern'
-    elsif (2000..2017).cover?(movie[:year].to_i)
-      @period = 'new'
-    end
+    # if (1900..1945).cover?(movie[:year].to_i)
+    #  @period = 'ancient'
+    # elsif (1945..1968).cover?(movie[:year].to_i)
+    #  @period = 'classic'
+    # elsif (1968..2000).cover?(movie[:year].to_i)
+    #  @period = 'modern'
+    # elsif (2000..2017).cover?(movie[:year].to_i)
+    #  @period = 'new'
+    # end
   end
 
   def match?(key, value)
@@ -44,7 +44,7 @@ class Movie
     end
   end
 
-  def has_genre?(arg)
+  def genre?(arg)
     raise ArgumentError, 'Genre is not found' unless @collection.genres.include?(arg)
     @genre.include?(arg)
   end
