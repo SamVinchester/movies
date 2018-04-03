@@ -23,7 +23,8 @@ class Theatre < MovieCollection
   def buy_ticket(movie, time)
     sale = COST.detect { |period, _cost| period.cover?(time.to_i) }[1]
     pay(sale)
-    'You bought ticket on ' + @mov_arr.map { |film| film.tittle if film.tittle == movie }.compact.join
+    'You bought ticket on ' +
+      + @mov_arr.map { |film| film.tittle if film.tittle == movie }.compact.join
   end
 
   def show(arg)

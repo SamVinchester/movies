@@ -1,27 +1,20 @@
 AllCops:
   Exclude:
     - 'spec/**'
-
-Lint/UselessAssignment:
-  Exclude:
     - 'demo.rb'
 
-Metrics/AbcSize:
-  Max: 37
+#Metrics/AbcSize:
+#  Max: 37
 
 Metrics/LineLength:
-  Max: 120
+  Max: 100
 
 Metrics/MethodLength:
   Max: 13
 
-Naming/PredicateName:
-  Exclude:
-    - 'movie.rb'
-
-Style/CaseEquality:
-  Exclude:
-    - 'movie.rb'
+#Naming/PredicateName:
+#  Exclude:
+#    - 'movie.rb'
 
 Style/Documentation:
   Enabled: false

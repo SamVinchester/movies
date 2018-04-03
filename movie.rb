@@ -16,19 +16,19 @@ class Movie
     @actors = movie[:actors].split(',')
     @month = Date._strptime(movie[:date], '%Y-%m')[:mon] if movie[:date].length > 6
     @collection = collection
-    if (1900..1945) === movie[:year].to_i
+    if (1900..1945).cover?(movie[:year].to_i)
       @period = 'ancient'
-    elsif (1945..1968) === movie[:year].to_i
+    elsif (1945..1968).cover?(movie[:year].to_i)
       @period = 'classic'
-    elsif (1968..2000) === movie[:year].to_i
+    elsif (1968..2000).cover?(movie[:year].to_i)
       @period = 'modern'
-    elsif (2000..2017) === movie[:year].to_i
+    elsif (2000..2017).cover?(movie[:year].to_i)
       @period = 'new'
     end
   end
 
   def match?(key, value)
-    Array(send(key)).any? { |genre| value === genre }
+    Array(send(key)).any? { |genre| value === genre } # rubocop:disable Style/CaseEquality
   end
 
   def self.create(movie, collection)
@@ -49,7 +49,8 @@ class Movie
     @genre.include?(arg)
   end
 
-  attr_reader :link, :tittle, :year, :country, :date, :genre, :time, :raiting, :producer, :actors, :month, :period
+  attr_reader :link, :tittle, :year, :country, :date, :genre,
+              :time, :raiting, :producer, :actors, :month, :period
   def to_s
     "Movie: #{@tittle}, #{@genre}, #{@country}, #{@date}, #{@time} min"
   end
