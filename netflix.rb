@@ -22,16 +22,30 @@ class Netflix < MovieCollection
     if block_given?
       puts @mov_arr.select { |movie| yield(movie, @year) }.sample
     elsif arg.value?(true)
-      show(&@filters.values[0])
-    elsif arg.values[0].is_a?(Integer)
-      @year = arg.values[0]
-      show(&@filters.values[0])
-    elsif
-      movie = filter(arg).sample
-      raise ArgumentError, 'not enough money!' unless @balance >= movie.cost
-      @balance -= movie.cost
-      puts 'Now showing: ' + movie.to_s
+      arg.each_pair{ |key, value| @mov_arr = @mov_arr.select(&@filters[key])
+      arg.delete(key) if value == true
+      arg.delete(value) if value == true}
+      @mov_arr = filter(arg).sample
+      raise ArgumentError, 'not enough money!' unless @balance >= @mov_arr.cost
+      @balance -= @mov_arr.cost
+      puts 'Now showing: ' + @mov_arr.to_s
     end
+    #if block_given?
+    #  puts @mov_arr.select { |movie| yield(movie, @year) }.sample
+    #elsif arg.any?{ |key, value| value == true }
+    #  arg.each_pair{ |key, value| show(&@filters[key]) }
+    #elsif arg.value?(true)
+    #  show(&@filters.values[0])
+    #elsif arg.values[0].is_a?(Integer)
+    #  @year = arg.values[0]
+    #  show(&@filters.values[0])
+    #elsif
+    #  movie = filter(arg).sample
+    #  raise ArgumentError, 'not enough money!' unless @balance >= movie.cost
+    #  @balance -= movie.cost
+    #  puts 'Now showing: ' + movie.to_s
+    #end
+    
   end
 
   def define_filter(arg, &block)

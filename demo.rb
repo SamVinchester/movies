@@ -41,8 +41,13 @@ netflix.pay(200)
 # puts Netflix.cash
 
 #netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && !movie.tittle.include?('Terminator') }
-#netflix.show(new_sci_fi: 2010)
- netflix.define_filter(:new_sci_fi) {|movie| movie.year > 2000}
- netflix.define_filter(:new_we_fi) {|movie| movie.genre.include?('Western')}
+#netflix.define_filter(:new_we_fi) {|movie| movie.genre.include?('Western')}
+#netflix.show(new_sci_fi: 2003, new_we_fi: true)
 
- netflix.show(new_we_fi: true, new_sci_fi: true)
+netflix.define_filter(:new_we_fi) {|movie| movie.genre.include?('Western')}
+#netflix.define_filter(:new_sci_fi) {|movie| movie.year > 1980 }
+
+netflix.show(new_we_fi: true, tittle: 'The Good, the Bad and the Ugly')
+#netflix.show(genre: 'Western')
+
+#netflix.show { |movie| movie.genre.include?('Action')}
