@@ -44,10 +44,8 @@ netflix.pay(200)
 #netflix.define_filter(:new_we_fi) {|movie| movie.genre.include?('Western')}
 #netflix.show(new_sci_fi: 2003, new_we_fi: true)
 
-netflix.define_filter(:new_we_fi) {|movie| movie.genre.include?('Western')}
-#netflix.define_filter(:new_sci_fi) {|movie| movie.year > 1980 }
+#netflix.define_filter(:new_we_fi) {|movie| movie.genre.include?('Western')}
+#netflix.show(new_we_fi: true, tittle: 'The Good, the Bad and the Ugly')
 
-netflix.show(new_we_fi: true, tittle: 'The Good, the Bad and the Ugly')
-#netflix.show(genre: 'Western')
-
-#netflix.show { |movie| movie.genre.include?('Action')}
+netflix.define_filter(:new_we_fi) {|movie, year| movie.genre.include?('Western') && movie.year > year}
+netflix.show(new_we_fi: 2010)
