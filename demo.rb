@@ -42,7 +42,7 @@ netflix.pay(200)
 
 netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && !movie.tittle.include?('Terminator') }
 netflix.define_filter(:new_we_fi) {|movie| movie.genre.include?('Western')}
-netflix.show(new_sci_fi: 1900, new_we_fi: true)
+netflix.show(new_sci_fi: 1900, new_we_fi: true) { |movie| movie.tittle.include?('The Good, the Bad and the Ugly') }
 
 #netflix.define_filter(:new_we_fi) {|movie| movie.genre.include?('Western')}
 #netflix.show(new_we_fi: true, tittle: 'The Good, the Bad and the Ugly')

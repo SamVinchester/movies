@@ -21,7 +21,7 @@ class Netflix < MovieCollection
   def show(arg = nil)
     if block_given?
       puts @mov_arr.select { |movie| yield(movie, @year) }.sample
-    elsif arg.value?(true) || arg.all?{|key, value| value.is_a?(Integer)}
+    else
       arg.each_pair{ |key, value|
       @mov_arr = @mov_arr.select{|movie| (@filters[key]).call(movie, value)} if value == true || value.is_a?(Integer)
       arg.delete(key) if value == true || value.is_a?(Integer)
