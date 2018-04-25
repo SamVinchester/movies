@@ -19,18 +19,23 @@ class Netflix < MovieCollection
   end
 
   def show(arg = nil)
-    if block_given?
-      puts @mov_arr.select { |movie| yield(movie, @year) }.sample
-    else
+    #if block_given?
+      @mov_arr = @mov_arr.select { |movie| yield(movie, @year) } if block_given?
+    #  puts 'Now showing: ' + @mov_arr.sample.to_s
+    #else
+    unless arg.nil?
       arg.each_pair{ |key, value|
-      @mov_arr = @mov_arr.select{|movie| (@filters[key]).call(movie, value)} if @filters.has_key?(key)
-      arg.delete(key) if @filters.has_key?(key)
-      arg.delete(value) if @filters.has_key?(key)}
+      if @filters.has_key?(key)
+        @mov_arr = @mov_arr.select{|movie| (@filters[key]).call(movie, value)}
+        arg.delete(key)
+        arg.delete(value)
+      end }
       @mov_arr = filter(arg).sample
       raise ArgumentError, 'not enough money!' unless @balance >= @mov_arr.cost
       @balance -= @mov_arr.cost
-      puts 'Now showing: ' + @mov_arr.to_s
     end
+    puts 'Now showing: ' + @mov_arr.to_s
+
     #if block_given?
     #  puts @mov_arr.select { |movie| yield(movie, @year) }.sample
     #elsif arg.any?{ |key, value| value == true }
