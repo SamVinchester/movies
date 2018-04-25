@@ -23,9 +23,9 @@ class Netflix < MovieCollection
       puts @mov_arr.select { |movie| yield(movie, @year) }.sample
     else
       arg.each_pair{ |key, value|
-      @mov_arr = @mov_arr.select{|movie| (@filters[key]).call(movie, value)} if value == true || value.is_a?(Integer)
-      arg.delete(key) if value == true || value.is_a?(Integer)
-      arg.delete(value) if value == true || value.is_a?(Integer)}
+      @mov_arr = @mov_arr.select{|movie| (@filters[key]).call(movie, value)} if @filters.has_key?(key)
+      arg.delete(key) if @filters.has_key?(key)#if value == true || value.is_a?(Integer)
+      arg.delete(value) if @filters.has_key?(key)} #if value == true || value.is_a?(Integer)}
       @mov_arr = filter(arg).sample
       raise ArgumentError, 'not enough money!' unless @balance >= @mov_arr.cost
       @balance -= @mov_arr.cost
