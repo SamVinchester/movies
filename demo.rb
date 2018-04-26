@@ -50,7 +50,7 @@ netflix.pay(200)
 #netflix.define_filter(:new_we_fi) {|movie, what| !movie.tittle.include?(what)}
 #netflix.show(new_we_fi: 'Terminator')
 
-netflix.show {|movie| movie.genre.include?('Western')}
+#netflix.show {|movie| movie.genre.include?('Western')}
 
-#netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && !movie.tittle.include?('Terminator') }
-#netflix.show(new_sci_fi: 2010) {|movie| movie.genre.include?('Western')}
+netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && !movie.tittle.include?('Terminator') }
+netflix.show(new_sci_fi: 2010) {|movie| movie.genre.include?('Western')}

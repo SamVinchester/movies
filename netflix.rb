@@ -33,6 +33,8 @@ class Netflix < MovieCollection
       @mov_arr = filter(arg).sample
       raise ArgumentError, 'not enough money!' unless @balance >= @mov_arr.cost
       @balance -= @mov_arr.cost
+    else
+      @mov_arr = @mov_arr.sample
     end
     puts 'Now showing: ' + @mov_arr.to_s
 
