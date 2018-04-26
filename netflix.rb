@@ -18,22 +18,31 @@ class Netflix < MovieCollection
     self.class.pay(cents)
   end
 
-  def show(arg = nil)
+  def user_filter(arg = nil, &block)
     @mov_arr = @mov_arr.select { |movie| yield(movie, @year) } if block_given?
     unless arg.nil?
-      arg.each_pair{ |key, value|
-      if @filters.has_key?(key)
-        @mov_arr = @mov_arr.select{|movie| (@filters[key]).call(movie, value)}
-        arg.delete(key)
-        arg.delete(value)
-      end }
-      @mov_arr = filter(arg).sample
-      raise ArgumentError, 'not enough money!' unless @balance >= @mov_arr.cost
-      @balance -= @mov_arr.cost
+      user = arg.partition { |filter| @filters.has_key?(filter[0]) }[0]
+      user.each{ |pair| @mov_arr = @mov_arr.select{|movie| (@filters[pair[0]]).call(movie, pair[1])}}
+      p default = arg.partition { |filter| @filters.has_key?(filter[0]) }[1]
+      default.each{ |pair| @mov_arr = filter(pair[0]: pair[1]) }
+      @mov_arr
+      #arg.each_pair{ |key, value|
+      #if @filters.has_key?(key)
+      #  @mov_arr = @mov_arr.select{|movie| (@filters[key]).call(movie, value)}
+      #  arg.delete(key)
+      #  arg.delete(value)
+      #end }
+      #@mov_arr = filter(arg)
     else
-      @mov_arr = @mov_arr.sample
+      @mov_arr
     end
-    puts 'Now showing: ' + @mov_arr.to_s
+  end
+
+  def show(arg = nil, &block)
+    @movie = user_filter(arg, &block).sample
+    puts 'Now showing: ' + @movie.to_s
+    raise ArgumentError, 'not enough money!' unless @balance >= @movie.cost
+    @balance -= @movie.cost
   end
 
   def define_filter(arg, &block)
