@@ -23,9 +23,9 @@ class Netflix < MovieCollection
     unless arg.nil?
       user = arg.partition { |filter| @filters.has_key?(filter[0]) }[0]
       user.each{ |pair| @mov_arr = @mov_arr.select{|movie| (@filters[pair[0]]).call(movie, pair[1])}}
-      p default = arg.partition { |filter| @filters.has_key?(filter[0]) }[1]
-      default.each{ |pair| @mov_arr = filter(pair[0]: pair[1]) }
       @mov_arr
+      default = arg.partition { |filter| @filters.has_key?(filter[0]) }[1]
+      mov_arr = filter(default.to_h)
       #arg.each_pair{ |key, value|
       #if @filters.has_key?(key)
       #  @mov_arr = @mov_arr.select{|movie| (@filters[key]).call(movie, value)}
