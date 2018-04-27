@@ -30,6 +30,36 @@ describe Netflix do
       subject { netflix.show(genre: 'Western', period: 'new') }
       it { expect { subject }.to output('Now showing: Django Unchained - novelty, premiere 6 years ago!' + ' ' + Time.now.strftime('%T') + ' - ' + (Time.now + (165 * 60)).strftime('%T') + "\n").to_stdout }
     end
+
+    context 'call user_filter' do
+      before { netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && !movie.tittle.include?('Terminator') } }
+      it ' call user_filter' do
+        expect(netflix).to receive(:user_filter).and_call_original
+        netflix.show(new_sci_fi: 2010)
+      end
+    end
+
+    context 'when block given' do
+      subject { netflix.show {|movie| movie.genre.include?('Western') && movie.year > 2010} }
+      it { expect { subject }.to output('Now showing: Django Unchained - novelty, premiere 6 years ago!' + ' ' + Time.now.strftime('%T') + ' - ' + (Time.now + (165 * 60)).strftime('%T') + "\n").to_stdout }
+    end
+  end
+
+  describe '#user_filter' do
+    context 'when block given' do
+      subject { netflix.user_filter { |movie| movie.genre.include?('Western') && movie.year > 2010 }}
+      it { expect ( subject ).to eq netflix.filter(genre: 'Western', period: 'new') }
+    end
+  end
+
+  describe '#define_filter' do
+    let(:filters) {netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && !movie.tittle.include?('Terminator') }}
+    context 'when user save filter' do
+      subject { filters }
+      it { is_expected.to include(:new_sci_fi)}
+      #subject { filters.class }
+      #it { is_expected.to eq Hash  }
+    end
   end
 
   describe '#pay' do
