@@ -16,7 +16,7 @@ theatre = Theatre.new(ARGV[0] || 'movies.txt')
 # puts netflix.balance
 netflix.pay(200)
 # netflix.show(genre: "Comedy", period: "new")
-# netflix.show(genre: "Western", period: "classic")
+# netflix.show(genre: "Western", period: "new")
 # puts netflix.balance
 # puts netflix.how_much?('The Terminator')
 # theatre.show("09:00")
@@ -47,7 +47,7 @@ netflix.pay(200)
 #netflix.define_filter(:new_we_fi) {|movie| movie.genre.include?('Western')}
 #netflix.show(new_we_fi: true, tittle: 'The Good, the Bad and the Ugly')
 
-#netflix.show {|movie| movie.genre.include?('Western')}
+# netflix.show {|movie| movie.genre.include?('Western')}
 
-netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && !movie.tittle.include?('Terminator') }
-netflix.show(new_sci_fi: 2010) {|movie| movie.genre.include?('Western')}
+#netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && !movie.tittle.include?('Terminator') }
+#netflix.show(new_sci_fi: 2010) {|movie| movie.genre.include?('Western')}
