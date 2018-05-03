@@ -18,29 +18,29 @@ class Netflix < MovieCollection
     self.class.pay(cents)
   end
 
-  def user_filter(filter_name = nil, &block)
+  def user_filter(filters = nil, &block)
     @mov_arr = @mov_arr.select { |movie| yield(movie, @year) } if block_given?
-    if @filters.nil? && block.nil?#filter_name.nil?
-      filter(filter_name)
-    elsif @filters != nil
-      p filter_parts = filter_name.partition { |filter| @filters.has_key?(filter[0]) }
-      @mov_arr = filter_parts[0].reduce(@mov_arr) { |coll, filter| coll = coll.select{|movie| (@filters[filter[0]]).call(movie, filter[1])} }
+    if @custom_filters.nil? && block.nil?#filter_name.nil?
+      filter(filters)
+    elsif @custom_filters != nil
+      p filter_parts = filters.partition { |filter| @custom_filters.has_key?(filter[0]) }
+      @mov_arr = filter_parts[0].reduce(@mov_arr) { |coll, filter| coll = coll.select{|movie| (@custom_filters[filter[0]]).call(movie, filter[1])} }
       @mov_arr = filter(filter_parts[1].to_h)
     else
       @mov_arr
     end
   end
 
-  def show(filter_name = nil, &block)
-    @movie = user_filter(filter_name, &block).sample
+  def show(filter = nil, &block)
+    @movie = user_filter(filter, &block).sample
     puts 'Now showing: ' + @movie.to_s
     raise ArgumentError, 'not enough money!' unless @balance >= @movie.cost
     @balance -= @movie.cost
   end
 
   def define_filter(filter_name, &block)
-    @filters ||= { }
-    @filters.merge!(filter_name => block)
+    @custom_filters ||= { }
+    @custom_filters.merge!(filter_name => block)
   end
 
   def how_much?(arg)
