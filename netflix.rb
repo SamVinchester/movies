@@ -23,12 +23,9 @@ class Netflix < MovieCollection
     if @filters.nil? && block.nil?#filter_name.nil?
       filter(filter_name)
     elsif @filters != nil
-      p user = filter_name.partition { |filter| @filters.has_key?(filter[0]) }[0]
-      user.reduce(@mov_arr) { |coll, filter| @mov_arr = coll.select{|movie| (@filters[filter[0]]).call(movie, filter[1])} }
-      #user.each{ |pair| @mov_arr = @mov_arr.select{|movie| (@filters[pair[0]]).call(movie, pair[1])}}
-      @mov_arr
-      default = filter_name.partition { |filter| @filters.has_key?(filter[0]) }[1]
-      @mov_arr = filter(default.to_h)
+      p filter_parts = filter_name.partition { |filter| @filters.has_key?(filter[0]) }
+      @mov_arr = filter_parts[0].reduce(@mov_arr) { |coll, filter| coll = coll.select{|movie| (@filters[filter[0]]).call(movie, filter[1])} }
+      @mov_arr = filter(filter_parts[1].to_h)
     else
       @mov_arr
     end
@@ -43,7 +40,6 @@ class Netflix < MovieCollection
 
   def define_filter(filter_name, &block)
     @filters ||= { }
-    
     @filters.merge!(filter_name => block)
   end
 
