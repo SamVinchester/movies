@@ -20,19 +20,20 @@ class Netflix < MovieCollection
 
   def user_filter(filters = nil, &block)
     @mov_arr = @mov_arr.select { |movie| yield(movie, @year) } if block_given?
-    if @custom_filters.nil? && block.nil?#filter_name.nil?
-      filter(filters)
-    elsif @custom_filters != nil
+    #if @custom_filters.nil? && block.nil?
+    #  filter(filters)
+    if @custom_filters != nil
       p filter_parts = filters.partition { |filter| @custom_filters.has_key?(filter[0]) }
       @mov_arr = filter_parts[0].reduce(@mov_arr) { |coll, filter| coll = coll.select{|movie| (@custom_filters[filter[0]]).call(movie, filter[1])} }
       @mov_arr = filter(filter_parts[1].to_h)
     else
-      @mov_arr
+      filters = { }
+      filter(filters) #@mov_arr
     end
   end
 
-  def show(filter = nil, &block)
-    @movie = user_filter(filter, &block).sample
+  def show(filters = nil, &block)
+    @movie = user_filter(filters, &block).sample
     puts 'Now showing: ' + @movie.to_s
     raise ArgumentError, 'not enough money!' unless @balance >= @movie.cost
     @balance -= @movie.cost
