@@ -8,7 +8,7 @@ class Netflix < MovieCollection
   def initialize(arg)
     super
     @balance = 0
-    @custom_filters ||= { }
+    @custom_filters = { }
   end
 
   attr_accessor :balance
