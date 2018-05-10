@@ -20,10 +20,11 @@ class Netflix < MovieCollection
   end
 
   def user_filter(filters = { }, &block)
-    @mov_arr = @mov_arr.select { |movie| yield(movie, @year) } if block_given?
-    filter_parts = filters.partition { |filter| @custom_filters.has_key?(filter[0]) }
-    @mov_arr = filter_parts[0].reduce(@mov_arr) { |coll, filter| coll = coll.select{|movie| (@custom_filters[filter[0]]).call(movie, filter[1])} }
-    @mov_arr = filter(filter_parts[1].to_h)
+    custom, internal = filters.partition { |name, _| @custom_filters.has_key?(name) }
+    films = filter(internal.to_h)
+    films = custom.reduce(films){|coll, filter| coll.select{|movie| (@custom_filters[filter[0]]).call(movie, filter[1])} }
+    return films unless block_given?
+    films.select { |movie| yield(movie, @year) }
   end
 
   def show(filters = { }, &block)
