@@ -9,6 +9,7 @@ class Netflix < MovieCollection
     super
     @balance = 0
     @custom_filters = { }
+    @new_filter = { }
   end
 
   attr_accessor :balance
@@ -22,7 +23,8 @@ class Netflix < MovieCollection
   def user_filter(filters = { }, &block)
     custom, internal = filters.partition { |name, _| @custom_filters.has_key?(name) }
     films = filter(internal.to_h)
-    films = custom.reduce(films){|coll, filter| coll.select{|movie| (@custom_filters[filter[0]]).call(movie, filter[1])} }
+    films = custom.reduce(films){|coll, filter| @custom_year = filter[1] if filter[1] != true
+      coll.select{|movie| (@custom_filters[filter[0]]).call(movie, @custom_year)} }
     return films unless block_given?
     films.select { |movie| yield(movie, @year) }
   end
@@ -34,8 +36,10 @@ class Netflix < MovieCollection
     @balance -= @movie.cost
   end
 
-  def define_filter(filter_name, &block)
+  def define_filter(filter_name, from: true, arg: 0, &block)
     @custom_filters.merge!(filter_name => block)
+    @custom_filters.merge!(filter_name => @custom_filters[from]) if @custom_filters.has_key?(from)
+    @custom_year = arg
   end
 
   def how_much?(arg)
