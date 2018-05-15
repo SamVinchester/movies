@@ -36,7 +36,8 @@ class Netflix < MovieCollection
   end
 
   def define_filter(filter_name, from: nil, arg: 0, &block)
-    @custom_filters[filter_name] = from != nil ? proc { |movie| @custom_filters[from].curry[movie][arg] } : block
+    raise ' from: Incorrect filter ' if from && !@custom_filters.has_key?(from)
+    @custom_filters[filter_name] = from ? proc { |movie| @custom_filters[from].call(movie, arg) } : block
   end
 
   def how_much?(arg)
