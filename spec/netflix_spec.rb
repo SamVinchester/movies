@@ -69,8 +69,19 @@ describe Netflix do
     context 'when user save filter' do
       subject { filters }
       it { is_expected.to include(:new_sci_fi)}
-      #subject { filters }
-      #it { is_expected.to all(have_attributes(:new_sci_fi => Proc))}
+    end
+
+    context 'when user save new filter based on filter' do
+      before { netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year } }
+      let(:based_filter) {netflix.define_filter(:newest_sci_fi, from: :new_sci_fi, arg: 2010)}
+      subject { based_filter }
+      it { is_expected.to include(:newest_sci_fi)}
+    end
+
+    context ' when incorrect from' do
+      let(:based_filter) {netflix.define_filter(:newest_sci_fi, from: :new_sci_fi, arg: 2010)}
+      subject { based_filter }
+      it {expect { subject }.to raise_error(RuntimeError, 'from: Incorrect filter')}
     end
   end
 
