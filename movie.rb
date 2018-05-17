@@ -1,8 +1,11 @@
 require 'csv'
 require 'date'
 require 'time'
+require 'virtus'
 
 class Movie
+  include Virtus.model
+
   def initialize(movie, collection)
     @link = movie[:link]
     @tittle = movie[:tittle]
@@ -40,8 +43,21 @@ class Movie
     @genre.include?(arg)
   end
 
-  attr_reader :link, :tittle, :year, :country, :date, :genre,
-              :time, :raiting, :producer, :actors, :month, :period
+  attribute :link, String
+  attribute :tittle, String
+  attribute :year, Integer
+  attribute :country, String
+  attribute :date, String
+  attribute :genre, Array
+  attribute :time, Integer
+  attribute :raiting, String
+  attribute :producer, String
+  attribute :actors, Array
+  attribute :month, Integer
+  attribute :period, String
+
+  #attr_reader :link, :tittle, :year, :country, :date, :genre,
+  #            :time, :raiting, :producer, :actors, :month, :period
   def to_s
     "Movie: #{@tittle}, #{@genre}, #{@country}, #{@date}, #{@time} min"
   end
