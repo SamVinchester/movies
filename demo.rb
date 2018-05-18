@@ -60,4 +60,4 @@ netflix.pay(200)
 
 #p netflix.genres
 #netflix.by_genre.Western
-p netflix.genres
+p netflix.by_genre.western

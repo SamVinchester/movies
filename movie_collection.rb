@@ -25,7 +25,7 @@ class MovieCollection
   end
 
   def genres
-    @mov_arr.map(&:genre).flatten.uniq#map{|genre| genre.split(',')}.flatten.uniq
+    @mov_arr.map(&:genre).flatten.uniq
   end
 
   def to_s

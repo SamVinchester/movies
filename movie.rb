@@ -26,14 +26,19 @@ class Movie
   attribute :year, Integer
   attribute :country, String
   attribute :date, String
-  attribute :genre, Array
+  attribute :genre, String
   attribute :time, Integer
   attribute :raiting, String
   attribute :producer, String
   attribute :actors, Array
   attribute :month, Integer
   attribute :period, String
-  #attribute :collection#, MovieCollection
+  attribute :collection
+
+  def genre=(new_genre)
+    new_genre = new_genre.split(',')
+    super new_genre
+  end
 
   def match?(key, value)
     Array(send(key)).any? { |genre| value === genre } # rubocop:disable Style/CaseEquality
