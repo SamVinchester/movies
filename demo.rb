@@ -10,6 +10,8 @@ require_relative 'classic_movie.rb'
 require_relative 'modern_movie.rb'
 require_relative 'new_movie.rb'
 require_relative 'cashbox.rb'
+require_relative 'copy_collection.rb'
+
 netflix = Netflix.new(ARGV[0] || 'movies.txt')
 theatre = Theatre.new(ARGV[0] || 'movies.txt')
 
@@ -47,11 +49,15 @@ netflix.pay(200)
 #netflix.define_filter(:new_we_fi) {|movie| movie.genre.include?('Western')}
 #netflix.show(new_we_fi: true, tittle: 'The Good, the Bad and the Ugly')
 
-#netflix.show {|movie| movie.genre.include?('Western')}
+# netflix.show {|movie| movie.genre.include?('Western')}
 
 #netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && !movie.tittle.include?('Terminator') }
 #netflix.show(new_sci_fi: 2010) {|movie| movie.genre.include?('Western')}
 
-netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && movie.genre.include?('Western')}
-netflix.define_filter(:newest_sci_fi, from: :new_sci_fi, arg: 2010)
-netflix.show(newest_sci_fi: true)
+#netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && movie.genre.include?('Western')}
+#netflix.define_filter(:newest_sci_fi, from: :new_sci_fi, arg: 2010)
+#netflix.show(newest_sci_fi: true)
+
+#p netflix.genres
+#netflix.by_genre.Western
+p netflix.genres

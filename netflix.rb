@@ -30,7 +30,7 @@ class Netflix < MovieCollection
 
   def show(filters = { }, &block)
     @movie = user_filter(filters , &block).sample
-    puts 'Now showing: ' + @movie.attributes.to_s
+    puts 'Now showing: ' + @movie.to_s
     raise ArgumentError, 'not enough money!' unless @balance >= @movie.cost
     @balance -= @movie.cost
   end
@@ -38,6 +38,10 @@ class Netflix < MovieCollection
   def define_filter(filter_name, from: nil, arg: 0, &block)
     raise 'from: Incorrect filter' if from && !@custom_filters.has_key?(from)
     @custom_filters[filter_name] = from ? proc { |movie| @custom_filters[from].call(movie, arg) } : block
+  end
+
+  def by_genre
+    CopyCollection.new(ARGV[0] || 'movies.txt')
   end
 
   def how_much?(arg)
