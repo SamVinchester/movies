@@ -1,8 +1,8 @@
 class CopyCollection
-  def initialize(arg)
-    arg.map(&:genre).flatten.uniq.each do |genre|
+  def initialize(collection)
+    collection.genres.each do |genre|
       define_singleton_method genre.downcase! do
-      	arg.select{ |movie| movie.genre.include?(genre.capitalize)}
+      	collection.filter(genre: genre.capitalize)
       end
     end
   end

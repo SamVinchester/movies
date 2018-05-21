@@ -41,7 +41,7 @@ class Netflix < MovieCollection
   end
 
   def by_genre
-    CopyCollection.new(@mov_arr)
+    CopyCollection.new(self)
   end
 
   def how_much?(arg)
