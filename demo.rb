@@ -58,7 +58,7 @@ netflix.pay(200)
 #netflix.define_filter(:newest_sci_fi, from: :new_sci_fi, arg: 2010)
 #netflix.show(newest_sci_fi: true)
 
-#puts netflix.filter(genre: 'Western')
-#p netflix.genres
-#netflix.by_genre.Western
-puts netflix.by_genre.western
+#puts netflix.filter(country: 'USA')
+
+#puts netflix.by_genre.western
+puts netflix.by_country.italy

@@ -44,6 +44,10 @@ class Netflix < MovieCollection
     CopyCollection.new(self)
   end
 
+  def by_country
+    CopyCollection.new(self)
+  end
+
   def how_much?(arg)
     @mov_arr.map do |film|
       if film.tittle == arg
