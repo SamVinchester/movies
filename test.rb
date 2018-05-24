@@ -1,24 +1,53 @@
-require 'virtus'
+class DSLHash
 
-class User
-  include Virtus.model
+  def self.build &block
+    if block_given?
+      context = DSLHashContext.new
+      context.instance_eval &block
+      return context.inner_hash
+    else
+      raise 'No block given'
+    end
+  end
 
-  attribute :name, String
-  attribute :age, Integer
-  attribute :birthday, DateTime
+  class DSLHashContext
+    attr_reader :inner_hash
+
+    def initialize
+      @inner_hash = {}   
+    end
+
+    def method_missing name, *args, &block
+      if block_given?
+        context = DSLHashContext.new
+        context.instance_eval &block
+        result = context.inner_hash
+      else
+        if args.size ==0
+          raise 'no block or args given'
+        elsif args.size == 1
+          result = args[0]
+        else
+          result = args
+        end
+      end
+      @inner_hash[name] = result
+    end
+  end
+
 end
 
-user = User.new(:name => 'Piotr', :age => 29)
-p user.attributes # => { :name => "Piotr", :age => 29 }
+h = DSLHash.build do
+  first_name "Andrey"
+  last_name "Viktorov"
+  
+  social do
+    vk "andvandv"
+    github "4ndv"
+    medium "@andv"
+  end
+  
+  tags "Krasnoyarsk", "Ruby", "Hello, world"
+end
 
-user.name # => "Piotr"
-
-user.age = '29' # => 29
-user.age.class # => Fixnum
-
-user.birthday = 'November 18th, 1983' # => #<DateTime: 1983-11-18T00:00:00+00:00 (4891313/2,0/1,2299161)>
-
-# mass-assignment
-user.attributes = { :name => 'Jane', :age => 21 }
-user.name # => "Jane"
-user.age  # => 21
+puts h

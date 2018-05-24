@@ -5,8 +5,30 @@ class Theatre < MovieCollection
   include Enumerable
   include Cashbox
 
-  def initialize(arg)
+  def initialize (arg = ARGV[0] || 'movies.txt', &block)
     super
+    if block_given?
+      context = DSL.new
+      context.instance_eval &block
+      #return context
+    end
+  end
+
+  class DSL
+    attr_reader :inner_hash
+
+    def initialize
+      @inner_hash = {}
+    end
+
+    def method_missing name, *args, &block
+      if block_given?
+        #p @inner_hash = {args => nil}
+        context = DSL.new
+        context.instance_eval &block
+      end
+      puts inner_hash = {name => args}
+    end
   end
 
   attr_accessor :money
