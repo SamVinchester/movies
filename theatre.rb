@@ -10,24 +10,30 @@ class Theatre < MovieCollection
     if block_given?
       context = DSL.new
       context.instance_eval &block
-      #return context
+      puts context.schedule
     end
   end
 
   class DSL
-    attr_reader :inner_hash
+    attr_reader :schedule
 
     def initialize
-      @inner_hash = {}
+      @schedule = {}
     end
 
     def method_missing name, *args, &block
       if block_given?
-        #p @inner_hash = {args => nil}
         context = DSL.new
         context.instance_eval &block
+        result = context.schedule
+      else
+        if args.size == 1
+          result = args[0]
+        else
+          result = args
+        end
       end
-      puts inner_hash = {name => args}
+      @schedule[name] = result
     end
   end
 
