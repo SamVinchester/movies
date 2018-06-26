@@ -8,34 +8,65 @@ class Theatre < MovieCollection
   def initialize (arg = ARGV[0] || 'movies.txt', &block)
     super
     if block_given?
-      context = DSL.new
+      context = TheatreBuilder.new
       context.instance_eval &block
-      puts context.schedule
     end
+    #if block_given?
+    #  context = DSL.new
+    #  context.instance_eval &block
+    #  puts context.schedule
+    #end
   end
 
-  class DSL
-    attr_reader :schedule
-
+  class TheatreBuilder
     def initialize
       @schedule = {}
     end
 
-    def method_missing name, *args, &block
+    def period (arg, &block)
+      @period = arg
+      puts @period
       if block_given?
-        context = DSL.new
-        context.instance_eval &block
-        result = context.schedule
-      else
-        if args.size == 1
-          result = args[0]
-        else
-          result = args
-        end
+        cr = PeriodBuilder.new
+        cr.instance_eval &block
       end
-      @schedule[name] = result
     end
   end
+
+  class PeriodBuilder < TheatreBuilder
+    def initialize
+      super
+      tablo = {}
+    end
+
+    def method_missing name, *args
+      tablo[name] = args
+      puts tablo
+    end
+  end
+
+  #class DSL
+  #  attr_reader :schedule
+
+  #  def initialize
+  #    @schedule = {}
+  #  end
+  #
+  #  def method_missing name, *args, &block
+  #    if block_given?
+  #      context = DSL.new
+  #      context.instance_eval &block
+  #      result = context.schedule
+  #    else
+  #      if args.size == 1
+  #        result = args[0]
+  #      else
+  #        result = args
+  #      end
+  #    end
+  #    @schedule[name] = result
+  #  end
+  #end
 
   attr_accessor :money
 

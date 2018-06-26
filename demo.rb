@@ -65,9 +65,9 @@ require_relative 'copy_collection.rb'
 
 theatre =
   Theatre.new do
-    hall :red, title: 'Красный зал', places: 100
-    hall :blue, title: 'Синий зал', places: 50
-    hall :green, title: 'Зелёный зал (deluxe)', places: 12
+    #hall :red, title: 'Красный зал', places: 100
+    #hall :blue, title: 'Синий зал', places: 50
+    #hall :green, title: 'Зелёный зал (deluxe)', places: 12
 
     period '09:00'..'11:00' do
       description 'Утренний сеанс'
