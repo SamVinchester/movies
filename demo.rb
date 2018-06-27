@@ -78,7 +78,7 @@ theatre =
 
     period '11:00'..'16:00' do
       description 'Спецпоказ'
-      title 'The Terminator'
+      tittle 'The Terminator'
       price 50
       hall :green
     end

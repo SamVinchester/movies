@@ -10,6 +10,7 @@ class Theatre < MovieCollection
     if block_given?
       context = TheatreBuilder.new
       context.instance_eval &block
+      #puts context.schedule
     end
     #if block_given?
     #  context = DSL.new
@@ -19,16 +20,18 @@ class Theatre < MovieCollection
   end
 
   class TheatreBuilder
+    attr_reader :schedule
     def initialize
       @schedule = {}
     end
 
     def period (arg, &block)
-      @period = arg
-      puts @period
+      @schedule[arg] = ''
+      puts @schedule
       if block_given?
         cr = PeriodBuilder.new
         cr.instance_eval &block
+        puts cr.description('Zalupa')
       end
     end
   end
@@ -36,12 +39,21 @@ class Theatre < MovieCollection
   class PeriodBuilder < TheatreBuilder
     def initialize
       super
-      tablo = {}
     end
-
-    def method_missing name, *args
-      tablo[name] = args
-      puts tablo
+    def description (arg)
+      puts arg
+    end
+    def filters(arg)
+       arg
+    end
+    def price(arg)
+       arg
+    end
+    def hall(*arg)
+       arg
+    end
+    def tittle(arg)
+       arg
     end
   end
 
