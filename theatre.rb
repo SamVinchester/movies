@@ -12,27 +12,27 @@ class Theatre < MovieCollection
       context.instance_eval &block
       #puts context.schedule
     end
-    #if block_given?
-    #  context = DSL.new
-    #  context.instance_eval &block
-    #  puts context.schedule
-    #end
   end
 
   class TheatreBuilder
     attr_reader :schedule
     def initialize
       @schedule = {}
+      @builder = {}
+      @times = []
     end
 
-    def period (arg, &block)
-      @schedule[arg] = ''
-      puts @schedule
+    def period (time, &block)
       if block_given?
         cr = PeriodBuilder.new
         cr.instance_eval &block
-        puts cr.description('Zalupa')
+        puts cr.to_hash(time).class
       end
+    end
+
+    def to_hash(time)
+      @schedule[time] = @builder
+      @schedule
     end
   end
 
@@ -41,44 +41,21 @@ class Theatre < MovieCollection
       super
     end
     def description (arg)
-      puts arg
+      @builder[:description] = arg
     end
     def filters(arg)
-       arg
+       @builder[:filters] = arg
     end
     def price(arg)
-       arg
+       @builder[:price] = arg
     end
     def hall(*arg)
-       arg
+       @builder[:hall] = arg
     end
     def tittle(arg)
-       arg
+       @builder[:tittle] = arg
     end
   end
-
-  #class DSL
-  #  attr_reader :schedule
-
-  #  def initialize
-  #    @schedule = {}
-  #  end
-  #
-  #  def method_missing name, *args, &block
-  #    if block_given?
-  #      context = DSL.new
-  #      context.instance_eval &block
-  #      result = context.schedule
-  #    else
-  #      if args.size == 1
-  #        result = args[0]
-  #      else
-  #        result = args
-  #      end
-  #    end
-  #    @schedule[name] = result
-  #  end
-  #end
 
   attr_accessor :money
 
