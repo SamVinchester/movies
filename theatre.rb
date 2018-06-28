@@ -17,8 +17,6 @@ class Theatre < MovieCollection
   class TheatreBuilder
     attr_reader :schedule
     def initialize
-      @schedule = {}
-      @builder = {}
       @times = []
     end
 
@@ -29,16 +27,12 @@ class Theatre < MovieCollection
         puts cr.to_hash(time).class
       end
     end
-
-    def to_hash(time)
-      @schedule[time] = @builder
-      @schedule
-    end
   end
 
-  class PeriodBuilder < TheatreBuilder
+  class PeriodBuilder
     def initialize
-      super
+      @schedule = {}
+      @builder = {}
     end
     def description (arg)
       @builder[:description] = arg
@@ -54,6 +48,10 @@ class Theatre < MovieCollection
     end
     def tittle(arg)
        @builder[:tittle] = arg
+    end
+    def to_hash(time)
+      @schedule[time] = @builder
+      @schedule
     end
   end
 
