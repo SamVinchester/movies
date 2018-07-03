@@ -97,4 +97,3 @@ theatre =
       hall :green
     end
   end
-  puts @times

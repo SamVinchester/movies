@@ -7,15 +7,15 @@ class Theatre < MovieCollection
 
   def initialize (arg = ARGV[0] || 'movies.txt', &block)
     super
+    @schedule = {}
     if block_given?
       context = TheatreBuilder.new
       context.instance_eval &block
-      #puts context.schedule
+      context.testing
     end
   end
 
   class TheatreBuilder
-    attr_reader :schedule
     def initialize
       @times = []
     end
@@ -24,7 +24,25 @@ class Theatre < MovieCollection
       if block_given?
         cr = PeriodBuilder.new
         cr.instance_eval &block
-        puts cr.to_hash(time).class
+        @times.push(cr.to_hash(time))
+      end
+    end
+
+    def testing
+      #puts @times
+      ranges = @times.map{|period| period.keys[0]}
+      count = ranges.size - 1
+      i = 0
+      n = 1
+      while n <= count
+        puts (ranges[i].first < ranges[n].last) && (ranges[n].first < ranges[i].last)
+        if n == count
+          i += 1
+          n = i + 1
+          puts i; puts n
+        end
+        n += 1
+        puts i; puts n
       end
     end
   end
