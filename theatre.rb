@@ -8,10 +8,13 @@ class Theatre < MovieCollection
   def initialize (arg = ARGV[0] || 'movies.txt', &block)
     super
     @schedule = {}
+    @cost = {}
     if block_given?
       context = TheatreBuilder.new
       context.instance_eval &block
       context.testing
+      @schedule = @schedule.merge(context.create_schedule)
+      @cost = @cost.merge(context.create_cost)
     end
   end
 
@@ -29,21 +32,35 @@ class Theatre < MovieCollection
     end
 
     def testing
-      #puts @times
+      #@times
       ranges = @times.map{|period| period.keys[0]}
       count = ranges.size - 1
       i = 0
       n = 1
       while n <= count
-        puts (ranges[i].first < ranges[n].last) && (ranges[n].first < ranges[i].last)
-        if n == count
-          i += 1
-          n = i + 1
-          puts i; puts n
+        if (ranges[i].first < ranges[n].last) && (ranges[n].first < ranges[i].last) == true
+          #puts @times[i][ranges[i]][:hall]
+          #puts @times[n][ranges[n]][:hall]
+          @times[n][ranges[n]][:hall].each{|hall| raise "Incorrect schedule!" if @times[i][ranges[i]][:hall].include?(hall) == true }
         end
         n += 1
-        puts i; puts n
+        if n > count
+          i += 1
+          n = i + 1
+        end
       end
+    end
+
+    def create_schedule
+      @sched = {}
+      @times.each{|hash| hash.each_pair{|key,value| @sched[key] = value[:filters] || value[:tittle]}}
+      @sched
+    end
+
+    def create_cost
+      @mini_cost = {}
+      @times.each{|hash| hash.each_pair{|key,value| @mini_cost[key] = value[:price]}}
+      @mini_cost
     end
   end
 
@@ -85,7 +102,11 @@ class Theatre < MovieCollection
            (18..23) => Money.new(700, 'USD').cents }.freeze
 
   def buy_ticket(movie, time)
-    sale = COST.detect { |period, _cost| period.cover?(time.to_i) }[1]
+    if @cost == {}
+      sale = COST.detect { |period, _cost| period.cover?(time.to_i) }[1]
+    else
+      sale = @cost.detect { |period, _cost| period.cover?(time) }[1]
+    end
     pay(sale)
     'You bought ticket on ' +
       + @mov_arr.map { |film| film.tittle if film.tittle == movie }.compact.join

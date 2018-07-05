@@ -97,3 +97,11 @@ theatre =
       hall :green
     end
   end
+
+ puts theatre.cash
+ puts theatre.buy_ticket('Psycho', '19:00')
+ puts theatre.cash
+ puts theatre.buy_ticket('The Terminator', '15:00')
+ puts theatre.cash
+ puts theatre.take('Bank')
+ puts theatre.cash
