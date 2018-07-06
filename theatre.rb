@@ -9,12 +9,14 @@ class Theatre < MovieCollection
     super
     @schedule = {}
     @cost = {}
+    @overlay = {}
     if block_given?
       context = TheatreBuilder.new
       context.instance_eval &block
       context.testing
       @schedule = @schedule.merge(context.create_schedule)
       @cost = @cost.merge(context.create_cost)
+      puts @overlay = @overlay.merge(context.testing)
     end
   end
 
@@ -33,6 +35,7 @@ class Theatre < MovieCollection
 
     def testing
       #@times
+      @over = {}
       ranges = @times.map{|period| period.keys[0]}
       count = ranges.size - 1
       i = 0
@@ -41,7 +44,10 @@ class Theatre < MovieCollection
         if (ranges[i].first < ranges[n].last) && (ranges[n].first < ranges[i].last) == true
           #puts @times[i][ranges[i]][:hall]
           #puts @times[n][ranges[n]][:hall]
+          #puts @times[n][ranges[n]][:hall] = @times[n][ranges[n]][:price]
           @times[n][ranges[n]][:hall].each{|hall| raise "Incorrect schedule!" if @times[i][ranges[i]][:hall].include?(hall) == true }
+          @over[@times[i][ranges[i]][:hall]] = @times[i][ranges[i]][:price]
+          @over[@times[n][ranges[n]][:hall]] = @times[n][ranges[n]][:price]
         end
         n += 1
         if n > count
@@ -49,6 +55,7 @@ class Theatre < MovieCollection
           n = i + 1
         end
       end
+      @over
     end
 
     def create_schedule
@@ -102,10 +109,17 @@ class Theatre < MovieCollection
            (18..23) => Money.new(700, 'USD').cents }.freeze
 
   def buy_ticket(movie, time)
+    puts @cost
     if @cost == {}
       sale = COST.detect { |period, _cost| period.cover?(time.to_i) }[1]
     else
-      sale = @cost.detect { |period, _cost| period.cover?(time) }[1]
+      if @overlay != nil
+        puts 'What hall you want?'
+        hall = gets.chomp
+        sale = @overlay.detect { |period, _cost| period.to_s.include?(hall) }[1] if @overlay.keys.flatten.to_s.include?(hall)
+      else
+        sale = @cost.detect { |period, _cost| period.cover?(time) }[1]
+      end
     end
     pay(sale)
     'You bought ticket on ' +
