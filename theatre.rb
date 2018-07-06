@@ -16,7 +16,7 @@ class Theatre < MovieCollection
       context.testing
       @schedule = @schedule.merge(context.create_schedule)
       @cost = @cost.merge(context.create_cost)
-      puts @overlay = @overlay.merge(context.testing)
+      @overlay = @overlay.merge(context.testing)
     end
   end
 
@@ -108,15 +108,17 @@ class Theatre < MovieCollection
            (12..18) => Money.new(500, 'USD').cents,
            (18..23) => Money.new(700, 'USD').cents }.freeze
 
-  def buy_ticket(movie, time)
-    puts @cost
+  def buy_ticket(movie, time,haal = nil)
+    #puts @cost
     if @cost == {}
       sale = COST.detect { |period, _cost| period.cover?(time.to_i) }[1]
     else
       if @overlay != nil
-        puts 'What hall you want?'
-        hall = gets.chomp
-        sale = @overlay.detect { |period, _cost| period.to_s.include?(hall) }[1] if @overlay.keys.flatten.to_s.include?(hall)
+        if haal != nil
+          sale = @overlay.detect { |period, _cost| period.include?(haal) }[1] if @overlay.keys.flatten.include?(haal)
+        else
+          raise "At this time you can watch different films, please choose the hall!"
+        end
       else
         sale = @cost.detect { |period, _cost| period.cover?(time) }[1]
       end
