@@ -60,7 +60,7 @@ describe Theatre do
 
     context 'when buy ticket' do
       subject { theatre.buy_ticket('Psycho', '09:00') }
-      it { is_expected. to eq 'You bought ticket on Psycho' }
+      it { is_expected.to eq 'You bought ticket on Psycho' }
     end
   end
 
