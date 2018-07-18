@@ -14,7 +14,7 @@ class Theatre < MovieCollection
       context = TheatreBuilder.new
       context.instance_eval &block
       context.testing
-      @schedule = @schedule.merge(context.create_schedule)
+      #@schedule = @schedule.merge(context.create_schedule)
       @cost = @cost.merge(context.create_cost)
       @overlay = @overlay.merge(context.testing)
     end
@@ -34,7 +34,7 @@ class Theatre < MovieCollection
     end
 
     def testing
-      #@times
+      #p @times
       @over = {}
       ranges = @times.map{|period| period.keys[0]}
       count = ranges.size - 1
@@ -42,9 +42,6 @@ class Theatre < MovieCollection
       n = 1
       while n <= count
         if (ranges[i].first < ranges[n].last) && (ranges[n].first < ranges[i].last) == true
-          #puts @times[i][ranges[i]][:hall]
-          #puts @times[n][ranges[n]][:hall]
-          #puts @times[n][ranges[n]][:hall] = @times[n][ranges[n]][:price]
           @times[n][ranges[n]][:hall].each{|hall| raise "Incorrect schedule!" if @times[i][ranges[i]][:hall].include?(hall) == true }
           @over[@times[i][ranges[i]][:hall]] = @times[i][ranges[i]][:price]
           @over[@times[n][ranges[n]][:hall]] = @times[n][ranges[n]][:price]
@@ -58,11 +55,11 @@ class Theatre < MovieCollection
       @over
     end
 
-    def create_schedule
-      @sched = {}
-      @times.each{|hash| hash.each_pair{|key,value| @sched[key] = value[:filters] || value[:tittle]}}
-      @sched
-    end
+    #def create_schedule
+    #  @sched = {}
+    #  @times.each{|hash| hash.each_pair{|key,value| @sched[key] = value[:filters] || value[:tittle]}}
+    #  @sched
+    #end
 
     def create_cost
       @mini_cost = {}
@@ -78,18 +75,23 @@ class Theatre < MovieCollection
     end
     def description (arg)
       @builder[:description] = arg
+      @builder
     end
     def filters(arg)
        @builder[:filters] = arg
+       @builder
     end
     def price(arg)
        @builder[:price] = arg
+       @builder
     end
     def hall(*arg)
        @builder[:hall] = arg
+       @builder
     end
     def tittle(arg)
        @builder[:tittle] = arg
+       @builder
     end
     def to_hash(time)
       @schedule[time] = @builder
@@ -109,7 +111,7 @@ class Theatre < MovieCollection
            (18..23) => Money.new(700, 'USD').cents }.freeze
 
   def buy_ticket(movie, time,haal = nil)
-    #puts @cost
+    @cost
     if @cost == {}
       sale = COST.detect { |period, _cost| period.cover?(time.to_i) }[1]
     else
