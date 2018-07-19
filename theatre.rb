@@ -78,22 +78,27 @@ class Theatre < MovieCollection
       @builder
     end
     def filters(arg)
-       @builder[:filters] = arg
-       @builder
+      @builder[:filters] = arg
+      @builder
     end
     def price(arg)
-       @builder[:price] = arg
-       @builder
+      #raise 'price is not specified' if arg == nil
+      @builder[:price] = arg
+      @builder
     end
     def hall(*arg)
-       @builder[:hall] = arg
-       @builder
+      #raise 'price is not specified' if arg == nil
+      @builder[:hall] = arg
+      @builder
     end
     def tittle(arg)
-       @builder[:tittle] = arg
-       @builder
+      @builder[:tittle] = arg
+      @builder
     end
     def to_hash(time)
+      raise 'price is not specified' if @builder[:price] == nil
+      raise 'filters is not specified' if @builder[:filters] == nil && @builder[:tittle] == nil
+      raise 'hall is not specified' if @builder[:hall] == nil
       @schedule[time] = @builder
       @schedule
     end
