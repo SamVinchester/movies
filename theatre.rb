@@ -30,6 +30,8 @@ class Theatre < MovieCollection
         cr = PeriodBuilder.new
         cr.instance_eval &block
         @times.push(cr.to_hash(time))
+      else
+        raise 'No block given'
       end
     end
 
