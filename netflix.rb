@@ -48,6 +48,10 @@ class Netflix < MovieCollection
     CopyCollection.new(self)
   end
 
+  def table
+    @mov_arr.map{|movie| movie.tittle}
+  end
+
   def how_much?(arg)
     @mov_arr.map do |film|
       if film.tittle == arg

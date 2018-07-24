@@ -1,6 +1,7 @@
 require 'csv'
 require 'date'
 require 'money'
+require 'haml'
 require_relative 'movie.rb'
 require_relative 'movie_collection.rb'
 require_relative 'netflix.rb'
@@ -12,8 +13,8 @@ require_relative 'new_movie.rb'
 require_relative 'cashbox.rb'
 require_relative 'copy_collection.rb'
 
-#netflix = Netflix.new(ARGV[0] || 'movies.txt')
-#theatre = Theatre.new(ARGV[0] || 'movies.txt')
+netflix = Netflix.new(ARGV[0] || 'movies.txt')
+theatre = Theatre.new(ARGV[0] || 'movies.txt')
 
 # puts netflix.balance
 #netflix.pay(200)
@@ -63,45 +64,50 @@ require_relative 'copy_collection.rb'
 #puts netflix.by_genre.western
 #puts netflix.by_country.italy
 
-theatre =
-  Theatre.new do
+#theatre =
+#  Theatre.new do
     #hall :red, title: 'Красный зал', places: 100
     #hall :blue, title: 'Синий зал', places: 50
     #hall :green, title: 'Зелёный зал (deluxe)', places: 12
 
-    period '09:00'..'11:00' do
-      description 'Утренний сеанс'
-      filters genre: 'Comedy', year: 1900..1980
-      price 10
-      hall :red, :blue
-    end
+#    period '09:00'..'11:00' do
+#      description 'Утренний сеанс'
+#      filters genre: 'Comedy', year: 1900..1980
+#      price 10
+#      hall :red, :blue
+#    end
 
-    period '11:00'..'16:00' do
-      description 'Спецпоказ'
-      tittle 'The Terminator'
-      price 50
-      hall :green
-    end
+#    period '11:00'..'16:00' do
+#      description 'Спецпоказ'
+#      tittle 'The Terminator'
+#      price 50
+#      hall :green
+#    end
 
-    period '16:00'..'20:00' do
-      description 'Вечерний сеанс'
-      filters genre: ['Action', 'Drama'], year: 2007..Time.now.year
-      price 20
-      hall :red, :blue
-    end
+#    period '16:00'..'20:00' do
+#      description 'Вечерний сеанс'
+#      filters genre: ['Action', 'Drama'], year: 2007..Time.now.year
+#      price 20
+#      hall :red, :blue
+#    end
 
-    period '19:00'..'22:00' do
-      description 'Вечерний сеанс для киноманов'
-      filters year: 1900..1945, exclude_country: 'USA'
-      price 30
-      hall :green
-    end
-  end
+#    period '19:00'..'22:00' do
+#      description 'Вечерний сеанс для киноманов'
+#      filters year: 1900..1945, exclude_country: 'USA'
+#      price 30
+#      hall :green
+#    end
+#  end
 
- puts theatre.cash
- puts theatre.buy_ticket('Psycho', '19:00', :green)
- puts theatre.cash
+# puts theatre.cash
+# puts theatre.buy_ticket('Psycho', '19:00', :green)
+# puts theatre.cash
  #puts theatre.buy_ticket('The Terminator', '15:00')
  #puts theatre.cash
  #puts theatre.take('Bank')
  #puts theatre.cash
+
+weekday = Time.now.strftime('%A')
+simple_template = "Today is <%= weekday %>."
+renderer = Haml.new(simple_template)
+puts renderer.result()
