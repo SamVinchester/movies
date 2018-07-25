@@ -107,7 +107,10 @@ theatre = Theatre.new(ARGV[0] || 'movies.txt')
  #puts theatre.take('Bank')
  #puts theatre.cash
 
-weekday = Time.now.strftime('%A')
-simple_template = "Today is <%= weekday %>."
-renderer = Haml.new(simple_template)
-puts renderer.result()
+#template = File.read('template.haml')
+#output = Haml::Engine.new(template).render(Movie.new, :movies => netflix.all)
+#puts output
+#File.open('template.html', 'w+') do |f|
+#  f.write output
+#end
+netflix.table_create

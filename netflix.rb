@@ -48,8 +48,13 @@ class Netflix < MovieCollection
     CopyCollection.new(self)
   end
 
-  def table
-    @mov_arr.map{|movie| movie.tittle}
+  def table_create
+    template = File.read('template.haml')
+    output = Haml::Engine.new(template).render(Movie.new, :movies => all)
+    puts output
+    File.open('template.html', 'w+') do |f|
+      f.write output
+    end
   end
 
   def how_much?(arg)
