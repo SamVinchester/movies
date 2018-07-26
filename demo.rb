@@ -2,6 +2,7 @@ require 'csv'
 require 'date'
 require 'money'
 require 'haml'
+require 'httparty'
 require_relative 'movie.rb'
 require_relative 'movie_collection.rb'
 require_relative 'netflix.rb'
@@ -107,10 +108,6 @@ theatre = Theatre.new(ARGV[0] || 'movies.txt')
  #puts theatre.take('Bank')
  #puts theatre.cash
 
-#template = File.read('template.haml')
-#output = Haml::Engine.new(template).render(Movie.new, :movies => netflix.all)
-#puts output
-#File.open('template.html', 'w+') do |f|
-#  f.write output
-#end
-netflix.table_create
+#netflix.table_create
+
+netflix.get_images

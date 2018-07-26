@@ -57,6 +57,12 @@ class Netflix < MovieCollection
     end
   end
 
+  def get_images
+    puts all.map{|movie| movie.link[22..30]}
+    #response = HTTParty.get('https://api.themoviedb.org/3/movie/tt0111161/images?api_key=d83731a8549bd375936b9779a5b6bb0d')
+    #p JSON.parse(response.body)['posters'][0]['file_path']#each_pair{|key, value| puts value[0] if key == 'posters'}
+  end
+
   def how_much?(arg)
     @mov_arr.map do |film|
       if film.tittle == arg
