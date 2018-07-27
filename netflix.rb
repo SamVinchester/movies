@@ -1,5 +1,6 @@
 require_relative 'cashbox.rb'
 require 'money'
+require 'ruby-progressbar'
 
 class Netflix < MovieCollection
   include Enumerable
@@ -50,7 +51,7 @@ class Netflix < MovieCollection
 
   def table_create
     template = File.read('template.haml')
-    output = Haml::Engine.new(template).render(Movie.new, :movies => all)
+    output = Haml::Engine.new(template).render(Movie.new, :movies => all, :poster => poster)
     puts output
     File.open('template.html', 'w+') do |f|
       f.write output
@@ -58,9 +59,23 @@ class Netflix < MovieCollection
   end
 
   def get_images
-    puts all.map{|movie| movie.link[22..30]}
-    #response = HTTParty.get('https://api.themoviedb.org/3/movie/tt0111161/images?api_key=d83731a8549bd375936b9779a5b6bb0d')
-    #p JSON.parse(response.body)['posters'][0]['file_path']#each_pair{|key, value| puts value[0] if key == 'posters'}
+    urls = []
+    all.select{|movie| id = movie.link[22..30];
+    url = 'https://image.tmdb.org/t/p/w200/'
+    response = HTTParty.get('https://api.themoviedb.org/3/movie/' + id + '/images?api_key=d83731a8549bd375936b9779a5b6bb0d')
+    progressbar = ProgressBar.create(:title => "Getting posters", :starting_at => 0, :total => 200)
+    url += JSON.parse(response.body{ progressbar.increment })['posters'][0]['file_path']
+    urls.push(url)}
+    #urls
+    File.open('posters.yml', 'w+') do |f|
+      f.write urls
+    end
+  end
+
+  def poster
+    thing = YAML.load_file('posters.yml')
+    posters = JSON.parse(thing.inspect)
+    all.zip(posters).to_h
   end
 
   def how_much?(arg)

@@ -6,6 +6,7 @@
 
     %table
       %tr
+        %th Poster
         %th Tittle
         %th Year
         %th Country
@@ -17,6 +18,8 @@
         %th Actors
       - movies.each do |i|
         %tr
+          %td
+            %img{:src => poster[i]}
           %td= i.tittle
           %td= i.year
           %td= i.country

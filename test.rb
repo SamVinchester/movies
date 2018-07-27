@@ -1,7 +1,5 @@
-require 'erb'
+require 'yaml'
+require 'json'
 
-p weekday = Time.now.strftime('%A')
-p simple_template = "Today is <%= weekday %>."
-puts renderer = ERB.new(simple_template)
-p renderer.class
-puts output = renderer.result()
+thing = YAML.load_file('posters.yml')
+puts JSON.parse(thing.inspect).class
