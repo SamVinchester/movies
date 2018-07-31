@@ -58,13 +58,13 @@ class Netflix < MovieCollection
     end
   end
 
-  def get_images
+  def get_images #получаем массив ссылок на постеры
     urls = []
     all.select{|movie| id = movie.link[22..30];
     url = 'https://image.tmdb.org/t/p/w200/'
     response = HTTParty.get('https://api.themoviedb.org/3/movie/' + id + '/images?api_key=d83731a8549bd375936b9779a5b6bb0d')
-    progressbar = ProgressBar.create(:title => "Getting posters", :starting_at => 0, :total => 200)
-    url += JSON.parse(response.body{ progressbar.increment })['posters'][0]['file_path']
+    #progressbar = ProgressBar.create(:title => "Getting posters", :starting_at => 0, :total => 200)
+    url += JSON.parse(response.body)['posters'][0]['file_path']
     urls.push(url)}
     #urls
     File.open('posters.yml', 'w+') do |f|

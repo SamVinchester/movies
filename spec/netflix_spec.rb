@@ -6,6 +6,7 @@ require '../classic_movie.rb'
 require '../modern_movie.rb'
 require '../new_movie.rb'
 require '../cashbox.rb'
+#require 'webmock/rspec'
 
 describe Netflix do
   before { Netflix.cash }
@@ -114,4 +115,13 @@ describe Netflix do
       it { is_expected.to eq 'cost of the film is 3$' }
     end
   end
+
+  #describe '#get_images' do
+  #  context 'get movies info' do
+  #    subject { netflix.get_images }
+  #    it 'sss' do
+  #      stub_request(:get, "api.themoviedb.org").to_return(String)
+  #    end
+  #  end
+  #end
 end
