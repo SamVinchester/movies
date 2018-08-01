@@ -51,7 +51,7 @@ class Netflix < MovieCollection
 
   def table_create
     template = File.read('template.haml')
-    output = Haml::Engine.new(template).render(Movie.new, :movies => all, :poster => poster)
+    output = Haml::Engine.new(template).render(Movie.new, :movies => all, :poster => poster, :budget => budgets)
     puts output
     File.open('template.html', 'w+') do |f|
       f.write output
@@ -66,10 +66,27 @@ class Netflix < MovieCollection
     #progressbar = ProgressBar.create(:title => "Getting posters", :starting_at => 0, :total => 200)
     url += JSON.parse(response.body)['posters'][0]['file_path']
     urls.push(url)}
-    #urls
     File.open('posters.yml', 'w+') do |f|
       f.write urls
     end
+  end
+
+  def get_budgets
+    budgets = []
+    all.each{|movie|  doc = Nokogiri::HTML(open(movie.link))
+    divs = doc.css("div[class='txt-block']").text
+    budget = /Budget:.\d{1,3}.\d{1,3}.\d{1,3}/.match(divs)
+    budget = '        unknown budget' if budget == nil
+    budgets.push(budget.to_s[7..25])}
+    File.open('budgets.yml', 'w+') do |f|
+      f.write budgets
+    end
+  end
+
+  def budgets
+    thing = YAML.load_file('budgets.yml')
+    budgets = JSON.parse(thing.inspect)
+    all.zip(budgets).to_h
   end
 
   def poster

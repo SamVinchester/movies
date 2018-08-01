@@ -2,9 +2,10 @@
 %html
   %head
     %title= "Netflix"
+    %link{:href => "css/bootstrap.css", :rel => "stylesheet"}
   %body
 
-    %table
+    %table{:class => "table table-bordered table-striped table-hover"}
       %tr
         %th Poster
         %th Tittle
@@ -16,6 +17,7 @@
         %th Raiting
         %th Producer
         %th Actors
+        %th Budget
       - movies.each do |i|
         %tr
           %td
@@ -29,4 +31,5 @@
           %td= i.raiting
           %td= i.producer
           %td= i.actors[0]
+          %td= budget[i]
 

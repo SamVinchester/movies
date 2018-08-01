@@ -3,6 +3,8 @@ require 'date'
 require 'money'
 require 'haml'
 require 'httparty'
+require 'nokogiri'
+require 'open-uri'
 require_relative 'movie.rb'
 require_relative 'movie_collection.rb'
 require_relative 'netflix.rb'
@@ -110,6 +112,9 @@ theatre = Theatre.new(ARGV[0] || 'movies.txt')
 
 #netflix.table_create
 
-netflix.get_images
+#netflix.get_images
 netflix.poster
+#netflix.table_create
+#netflix.get_budgets
+netflix.budgets
 netflix.table_create
