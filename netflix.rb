@@ -49,45 +49,6 @@ class Netflix < MovieCollection
     CopyCollection.new(self)
   end
 
-  def table_create
-    template = File.read('template.haml')
-    output = Haml::Engine.new(template).render(Movie.new, :movies => all, :poster => poster, :budget => budgets)
-    puts output
-    File.open('template.html', 'w+') do |f|
-      f.write output
-    end
-  end
-
-  def get_images #получаем массив ссылок на постеры
-    File.open('posters.yml', 'w+') do |f|
-      f.write all.map{|movie| id = movie.link[22..30]
-        @url = 'https://image.tmdb.org/t/p/w200/'
-        response = HTTParty.get('https://api.themoviedb.org/3/movie/' + id + '/images?api_key=d83731a8549bd375936b9779a5b6bb0d')
-        #progressbar = ProgressBar.create(:title => "Getting posters", :starting_at => 0, :total => 200)
-        @url += JSON.parse(response.body)['posters'][0]['file_path']}
-    end
-  end
-
-  def get_budgets
-    File.open('budgets.yml', 'w+') do |f|
-      f.write all.map{|movie|  doc = Nokogiri::HTML(HTTParty.get(movie.link))
-      divs = doc.css("div[class='txt-block']").text
-      budget = /Budget:.\d{1,3}.\d{1,3}.\d{1,3}/.match(divs).to_s[7..25]}
-    end
-  end
-
-  def budgets
-    thing = YAML.load_file('budgets.yml')
-    budgets = JSON.parse(thing.inspect)
-    all.zip(budgets).to_h
-  end
-
-  def poster
-    thing = YAML.load_file('posters.yml')
-    posters = JSON.parse(thing.inspect)
-    all.zip(posters).to_h
-  end
-
   def how_much?(arg)
     @mov_arr.map do |film|
       if film.tittle == arg

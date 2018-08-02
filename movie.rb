@@ -33,6 +33,8 @@ class Movie
   attribute :actors, Array
   attribute :month, Integer
   attribute :period, String
+  attribute :poster, String
+  attribute :budget, String
   attribute :collection
 
   def genre=(new_genre)
@@ -55,6 +57,20 @@ class Movie
     when 2000..2018
       NewMovie.new(movie)#, collection)
     end
+  end
+
+  def poster
+    thing = YAML.load_file('posters.yml')
+    thing.map{|pair| pair.split(' : ') }.map{|pair| pair[1] if tittle == pair[0]}.compact[0]
+
+    #posters = JSON.parse(thing.inspect).class
+    #posters.map{|poster| {:tittle => poster}}
+    #puts posters
+  end
+
+  def budget
+    thing = YAML.load_file('budgets.yml')
+    thing.map{|pair| pair.split(' : ') }.map{|pair| pair[1] if tittle == pair[0]}.compact[0]
   end
 
   def genre?(arg)

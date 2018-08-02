@@ -1,7 +1,7 @@
 class MovieCollection
   include Enumerable
 
-  KEYS = %i[link tittle year country date genre time raiting producer actors].freeze
+  KEYS = %i[link tittle year country date genre time raiting producer actors poster budget].freeze
   def initialize(arg)
     @mov_arr = CSV.read(arg, col_sep: '|')
                   .map { |line| Movie.create(KEYS.zip(line).to_h, self) }

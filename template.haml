@@ -21,7 +21,7 @@
       - movies.each do |i|
         %tr
           %td
-            %img{:src => poster[i]}
+            %img{:src => i.poster}
           %td= i.tittle
           %td= i.year
           %td= i.country
@@ -31,5 +31,5 @@
           %td= i.raiting
           %td= i.producer
           %td= i.actors[0]
-          %td= budget[i]
+          %td= i.budget
 
