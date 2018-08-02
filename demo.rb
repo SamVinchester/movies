@@ -113,7 +113,7 @@ theatre = Theatre.new(ARGV[0] || 'movies.txt')
 #netflix.table_create
 
 #netflix.get_images
-netflix.poster
+#netflix.poster
 #netflix.table_create
 netflix.get_budgets
 netflix.budgets

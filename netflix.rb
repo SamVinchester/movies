@@ -60,7 +60,7 @@ class Netflix < MovieCollection
 
   def get_images #получаем массив ссылок на постеры
     File.open('posters.yml', 'w+') do |f|
-      f.write all.map{|movie| id = movie.link[22..30];
+      f.write all.map{|movie| id = movie.link[22..30]
         @url = 'https://image.tmdb.org/t/p/w200/'
         response = HTTParty.get('https://api.themoviedb.org/3/movie/' + id + '/images?api_key=d83731a8549bd375936b9779a5b6bb0d')
         #progressbar = ProgressBar.create(:title => "Getting posters", :starting_at => 0, :total => 200)
@@ -69,13 +69,10 @@ class Netflix < MovieCollection
   end
 
   def get_budgets
-    budgets = []
-    all.each{|movie|  doc = Nokogiri::HTML(HTTParty.get(movie.link))
-    divs = doc.css("div[class='txt-block']").text
-    budget = /Budget:.\d{1,3}.\d{1,3}.\d{1,3}/.match(divs)
-    budgets.push(budget.to_s[7..25])}
     File.open('budgets.yml', 'w+') do |f|
-      f.write budgets
+      f.write all.map{|movie|  doc = Nokogiri::HTML(HTTParty.get(movie.link))
+      divs = doc.css("div[class='txt-block']").text
+      budget = /Budget:.\d{1,3}.\d{1,3}.\d{1,3}/.match(divs).to_s[7..25]}
     end
   end
 
